@@ -4,17 +4,19 @@ import Login from './pages/login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import ChatPDF from './pages/ChatPdf'
-import axios from 'axios'
+import { useContext } from 'react'
+import { UserContext } from './UserContext'
 
 
 function App() {
+  const {ready} = useContext(UserContext)
 
   return (
     <Routes>
       <Route path='/' element={<Login />} />
       <Route path='/register' element={<Register />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/dashboard/pdf' element={<ChatPDF />} />
+      <Route path='/dashboard' element={ready ? <Dashboard /> : <Login />} />
+      <Route path='/dashboard/pdf' element={ready ? <ChatPDF />  : <Login />} />
     </Routes>
   )
 }

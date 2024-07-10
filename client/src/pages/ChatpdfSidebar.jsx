@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import robot from '../assets/Robot.jpg';
-import { LuUpload } from "react-icons/lu";
 import { FaFileDownload } from "react-icons/fa";
 import axios from "axios";
 import { ThemeContext } from "../ThemeContext";
@@ -18,14 +17,14 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
         setPdfs(files);
-        console.log(files);
     };
 
     const handleUpload = async () => {
         const formData = new FormData();
         pdfs.forEach((pdf, index) => {
-            formData.append(`pdfs[${index}]`, pdf);
+            formData.append(`pdf_files`, pdf); // Ensure this matches your Django backend
         });
+
         try {
             const response = await axios.post('http://localhost:8000/api/upload_pdfs/', formData, {
                 headers: {
@@ -49,12 +48,10 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                 <div className={`flex flex-col items-center ${expanded ? "opacity-100" : "opacity-0 overflow-hidden"} transition-opacity duration-300`}>
                     <img src={robot} alt="Robot" className="mb-6 h-72" />
                     <div className="text-center">
-                        <div className="flex items-center justify-center">
-                            <h1 className={`text-2xl flex gap-4 font-bold mb-4 leading-5 ${expanded ? '' : 'hidden'}`}>
-                                <FaFileDownload size={35} className="text-yellow-400" />
-                                PDF File's Section
-                            </h1>
-                        </div>
+                        <h1 className={`text-2xl flex gap-4 font-bold mb-4 leading-5 ${expanded ? '' : 'hidden'}`}>
+                            <FaFileDownload size={35} className="text-yellow-400" />
+                            PDF File's Section
+                        </h1>
                         <input 
                             type="file" 
                             multiple 
@@ -67,7 +64,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                                 className={`bg-blue-500 text-white gap-2 flex py-2 px-4 rounded-lg hover:bg-blue-600 ${expanded ? '' : 'hidden'}`} 
                                 onClick={handleUpload}
                             >
-                                <LuUpload size={20} />Upload PDFs
+                                Upload PDFs
                             </button>
                         </div>
                     </div>
