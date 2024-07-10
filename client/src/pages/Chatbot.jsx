@@ -17,7 +17,7 @@ function Chatbot() {
 
  
   async function handleSubmit() {
-    if (messages.trim() === '') return;
+    if (input.trim() === '') return;
     const newMessages = [...messages, { role: 'user', content: input }];
     setMessages(newMessages);
     setInput('');

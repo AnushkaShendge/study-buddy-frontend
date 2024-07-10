@@ -6,8 +6,7 @@ import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [input, setInput] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [redirect, setRedirect] = useState(false);
@@ -50,8 +49,8 @@ function Login() {
                             id="input"
                             type="text"
                             placeholder="Enter your email id"
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="px-3 py-2 w-full border rounded-md focus:outline-none focus:border-blue-500"
                             required
                         />
