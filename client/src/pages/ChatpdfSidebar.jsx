@@ -28,7 +28,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(response.data);
+            console.log(response.data.object);
             console.log('Upload successful', response.data);
         } catch (error) {
             console.error('Error uploading PDFs', error);
