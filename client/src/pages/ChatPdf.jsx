@@ -29,10 +29,10 @@ function ChatPdf() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className={`flex h-screen ${theme === 'light' ? '' : 'bg-black text-white'}`}>
       <ChatpdfSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-      <main className={`flex-grow p-6 ${theme === 'light' ? 'bg-white text-black' : 'bg-black text-white'}`}>
-        <div className="flex flex-col items-center">
+      <main className={`flex-grow p-6  flex justify-center items-center ml-80`}>
+        <div className="flex flex-col items-center text-center">
           <header className="flex items-center mb-6">
             <h1 className="text-3xl font-bold mr-2">Multi-PDF's</h1>
             <span className="text-3xl">📚</span>

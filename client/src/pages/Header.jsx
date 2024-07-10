@@ -21,7 +21,7 @@ function Header({ sidebarOpen }) {
         setRedirect(true);
     }
     if(redirect){
-        return <Navigate to="/login" />
+        return <Navigate to="/" />
     }
 
 
@@ -29,7 +29,11 @@ function Header({ sidebarOpen }) {
         <div
             className={`shadow-md p-4 flex items-center justify-between border-b-4 fixed top-0 left-0 right-0 bg-white z-10 border-orange-400 transition-all duration-300 ${
                 sidebarOpen ? 'ml-[196px]' : 'ml-[72px]'
-            } header-container ${theme === 'light' ? '' : 'bg-black text-white '}`}
+            } header-containe ' }`}
+            style={{
+                backgroundColor: theme === 'light' ? '' : 'black',
+                color: theme === 'light' ? '' : 'white'
+            }}
         >
             <div className="flex items-center">
                 <h1 className="text-2xl font-bold">Dashboard</h1>
