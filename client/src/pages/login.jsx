@@ -7,7 +7,6 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { UserContext } from '../UserContext';
 
 function Login() {
-    const {setUser , user} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -22,11 +21,9 @@ function Login() {
         const response = await axios.post('http://localhost:8000/login/', { email, password } , { headers: { 'Content-Type': 'application/json' } });
 
         if (response.data) {
-            setUser(response.data)
             setRedirect(true);
         }
     }
-    console.log(user);
     if (redirect) {
         return <Navigate to= '/dashboard' />;
     }
