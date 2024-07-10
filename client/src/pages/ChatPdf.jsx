@@ -17,8 +17,7 @@ function ChatPdf() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://localhost:8000/api/ask_question/', { question });
-      console.log(response)
-      setReply(response.data.answer);
+      setReply(response.data.response);
       console.log(reply)
     } catch (error) {
       console.error('Error submitting question:', error);
