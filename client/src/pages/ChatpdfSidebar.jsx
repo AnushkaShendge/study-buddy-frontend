@@ -30,6 +30,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
 
         // Log the FormData keys and values
         for (let pair of formData.entries()) {
+            console.log(thasbbev)
             console.log(pair[0], pair[1]);
         }
 
