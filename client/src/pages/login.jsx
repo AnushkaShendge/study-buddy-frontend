@@ -7,7 +7,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { UserContext } from '../UserContext';
 
 function Login() {
-    const {setUser} = useContext(UserContext)
+    const {setUser , user} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -23,6 +23,7 @@ function Login() {
 
         if (response.data) {
             setUser(response.data)
+            console.log(user)
             setRedirect(true);
         }
     }
