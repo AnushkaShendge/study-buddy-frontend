@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ChatpdfSidebar from './ChatpdfSidebar';
 import { AiOutlineRobot } from "react-icons/ai";
 import axios from "axios";
+import { ThemeContext } from "../ThemeContext";
 
 function ChatPdf() {
+  const {theme} = useContext(ThemeContext)
   const [question, setQuestion] = useState('');
   const [reply, setReply] = useState('');
   const [isOpen, setIsOpen] = useState(true);
@@ -24,7 +26,7 @@ function ChatPdf() {
   return (
     <div className="flex">
       <ChatpdfSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-      <main className="flex-grow w-full p-6 ml-96 mt-28"> 
+      <main className={`flex-grow w-full h-full p-6 ml-96 mt-28 ${theme === 'light' ? '' : 'bg-black text-white'}`}> 
         <div className="flex flex-col items-center  p-6">
           <header className="flex items-center mb-6">
             <h1 className="text-3xl font-bold mr-2">Multi-PDF's</h1>
