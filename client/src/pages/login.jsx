@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import loginImg from '../assets/Robot.jpg';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { UserContext } from '../UserContext';
 
 function Login() {
+    const {setUser} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +23,7 @@ function Login() {
 
         if (response.data) {
             setRedirect(true);
+            setUser(response.data)
         }
     }
     if (redirect) {
