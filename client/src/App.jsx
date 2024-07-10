@@ -9,14 +9,14 @@ import { UserContext } from './UserContext'
 
 
 function App() {
-  const {ready} = useContext(UserContext)
+  const {user} = useContext(UserContext)
 
   return (
     <Routes>
       <Route path='/' element={<Login />} />
       <Route path='/register' element={<Register />} />
-      <Route path='/dashboard' element={ready ? <Dashboard /> : <Login />} />
-      <Route path='/dashboard/pdf' element={ready ? <ChatPDF />  : <Login />} />
+      <Route path='/dashboard' element={user === '' ? <Login /> : <Dashboard />} />
+      <Route path='/dashboard/pdf' element={user === '' ? <Login />  : <ChatPDF />} />
     </Routes>
   )
 }
