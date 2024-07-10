@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import ChatPDF from './pages/ChatPdf'
 import { useContext } from 'react'
 import { UserContext } from './UserContext'
+import { Navigate } from 'react-router-dom'
 
 
 function App() {
