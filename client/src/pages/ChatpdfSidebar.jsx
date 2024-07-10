@@ -1,14 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
-import { ThemeContext } from "../ThemeContext";
 import robot from '../assets/Robot.jpg'
 import { LuUpload } from "react-icons/lu";
 import { FaFileDownload } from "react-icons/fa";
 import axios from "axios";
 
 function ChatpdfSidebar({ isOpen, toggleSidebar }) {
-    const [expanded, setExpanded] = useState(isOpen);
-    const { theme } = useContext(ThemeContext);
+    const [expanded, setExpanded] = useState(isOpen)
     const [pdfs , setPdfs] = useState([]);
 
 
@@ -23,7 +21,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
         });
 
         try {
-            const response = await axios.post('http://localhost:8000/upload_pdfs/', formData, {
+            const response = await axios.post('http://localhost:8000/api/upload_pdfs/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -34,7 +32,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
         }
     };
     return (
-        <aside className={`fixed h-screen ${theme === 'light' ? '' : 'bg-black text-white '} `}>
+        <aside className={`fixed h-screen `}>
             <nav className="h-full flex flex-col border-r shadow-sm p-4">
                 <div className="flex justify-end">
                     <button onClick={toggleSidebar} className="p-1.5 rounded-lg hover:bg-gray-100">

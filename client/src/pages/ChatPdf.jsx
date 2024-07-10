@@ -13,7 +13,7 @@ function ChatPdf() {
   };
 
   const handleSubmit = () => {
-    const response = axios.post('http://localhost:8000/ask_question' , {question});
+    const response = axios.post('http://localhost:8000/api/ask_question/' , {question});
     setReply(response.data.answer);
   };
 

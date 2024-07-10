@@ -23,7 +23,7 @@ function Chatbot() {
     setInput('');
 
     try {
-      const res = await axios.post('http://localhost:8000/chat/', { 
+      const res = await axios.post('http://localhost:8000/api/chat/', { 
         question: input,
         session_id: sessionId,
       } ,
