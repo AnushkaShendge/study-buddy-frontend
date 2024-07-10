@@ -18,9 +18,10 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
 
    async function handleUpload() {
         const formData = new FormData();
-        Array.from(pdfs).forEach((pdf, index) => {
-            formData.append(`pdfs[${index}]`, pdf);
+        pdfs.forEach((pdf, index) => {
+            formData.append('pdfs', pdf);
         });
+
         console.log(formData)
 
         try {
