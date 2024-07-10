@@ -23,10 +23,10 @@ function Login() {
 
         if (response.data) {
             setUser(response.data)
-            console.log(user)
             setRedirect(true);
         }
     }
+    console.log(user);
     if (redirect) {
         return <Navigate to= '/dashboard' />;
     }
