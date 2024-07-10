@@ -43,7 +43,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                     <img src={robot} alt="Robot" className="mb-16 h-72" />
                     <div className="text-center ">
                         <div className="flex items-center justify-center"><h1 className="text-2xl flex gap-4 font-bold mb-4 leading-5"><FaFileDownload size={35} className="text-yellow-400" />PDF File's Section</h1></div>
-                        <input type="file" multiple onChange={(e) => setPdfs(e.target.files)} />
+                        <input type="file" multiple onChange={(e) => setPdfs(e.target.files)} className="mb-4" />
                         <p className="text-md mb-4">Upload your PDF Files & Click on the Submit & Process Button</p>
                         <div className="flex items-center justify-center mt-8"><button className="bg-blue-500 text-white gap-2 flex py-2 px-4 rounded-lg hover:bg-blue-600" onClick={handleUpload}><LuUpload size={20}/>Upload PDFs</button></div>
                     </div>
