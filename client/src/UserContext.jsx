@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/user');
+                const response = await axios.get('http://localhost:8000/user');
                 setUser(response.data); // Assuming response.data contains user info
                 setReady(true);
             } catch (error) {
