@@ -18,7 +18,8 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await axios.post('http://localhost:8000/login/', { email, password });
+        const response = await axios.post('http://localhost:8000/login/', { email, password } , { headers: { 'Content-Type': 'application/json' } });
+
         if (response.data) {
             setRedirect(true);
         }

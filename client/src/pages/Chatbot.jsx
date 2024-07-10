@@ -17,13 +17,13 @@ function Chatbot() {
 
  
   async function handleSubmit() {
-    if (query.trim() === '') return;
+    if (messages.trim() === '') return;
     const newMessages = [...messages, { role: 'user', content: input }];
     setMessages(newMessages);
     setInput('');
 
     try {
-      const res = await axios.post('http://localhost:8000/api/chat/', { 
+      const response = await axios.post('http://localhost:8000/api/chat/', { 
         question: input,
         session_id: sessionId,
       } ,
