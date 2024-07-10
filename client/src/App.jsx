@@ -15,8 +15,14 @@ function App() {
     <Routes>
       <Route path='/' element={<Login />} />
       <Route path='/register' element={<Register />} />
-      <Route path='/dashboard' element={user === '' ? <Login /> : <Dashboard />} />
-      <Route path='/dashboard/pdf' element={user === '' ? <Login />  : <ChatPDF />} />
+      <Route
+        path="/dashboard"
+        element={user ? <Dashboard /> : <Navigate to="/" replace />}
+      />
+      <Route
+        path="/dashboard/pdf"
+        element={user ? <ChatPDF /> : <Navigate to="/" replace />}
+      />
     </Routes>
   )
 }
