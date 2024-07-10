@@ -5,7 +5,7 @@ import axios from "axios";
 import { ThemeContext } from "../ThemeContext";
 
 function ChatPdf() {
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
   const [question, setQuestion] = useState('');
   const [reply, setReply] = useState('');
   const [isOpen, setIsOpen] = useState(true);
@@ -14,9 +14,14 @@ function ChatPdf() {
     setQuestion(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const response = axios.post('http://localhost:8000/api/ask_question/' , {question});
-    setReply(response.data.answer);
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/ask_question/', { question });
+      setReply(response.data.answer);
+    } catch (error) {
+      console.error('Error submitting question:', error);
+      setReply('Failed to get response');
+    }
   };
 
   const toggleSidebar = () => {
@@ -24,10 +29,10 @@ function ChatPdf() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <ChatpdfSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-      <main className={`flex-grow w-full h-full p-6 ml-96 mt-28 ${theme === 'light' ? '' : 'bg-black text-white'}`}> 
-        <div className="flex flex-col items-center  p-6">
+      <main className={`flex-grow p-6 ${theme === 'light' ? 'bg-white text-black' : 'bg-black text-white'}`}>
+        <div className="flex flex-col items-center">
           <header className="flex items-center mb-6">
             <h1 className="text-3xl font-bold mr-2">Multi-PDF's</h1>
             <span className="text-3xl">📚</span>
