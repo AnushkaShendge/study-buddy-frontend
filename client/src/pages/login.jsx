@@ -4,9 +4,11 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
+import jwtDecode from 'jwt-decode'
 import { UserContext } from '../UserContext';
 
 function Login() {
+    const {setUser} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -20,8 +22,15 @@ function Login() {
         e.preventDefault();
         const response = await axios.post('http://localhost:8000/login/', { email, password } , { headers: { 'Content-Type': 'application/json' } });
 
-        if (response.data) {
+        if (response.data && response.data.token) {
+            const token = response.data.token
+            const decoded = jwtDecode(token);
+            const { email, username } = decoded;
+
+            setUser({ email, username });
             setRedirect(true);
+
+
         }
     }
     if (redirect) {
