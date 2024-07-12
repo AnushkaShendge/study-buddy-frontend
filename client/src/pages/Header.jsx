@@ -7,8 +7,11 @@ import { CgToggleOn } from "react-icons/cg";
 import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { ThemeContext  } from "../ThemeContext";
+import { FaUserAlt } from "react-icons/fa";
+import { UserContext } from "../UserContext";
 
 function Header({ sidebarOpen }) {
+    const {user} = useContext(UserContext)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { theme , toggleTheme } = useContext(ThemeContext)
     const [redirect , setRedirect] = useState(false);
@@ -56,6 +59,14 @@ function Header({ sidebarOpen }) {
                 {isDropdownOpen && (
                     <div className={`absolute top-[64px] right-4 border rounded-lg shadow-xl p-2 w-48 bg-white ` }style={theme === 'light' ? {} : { backgroundColor: "black",color:"white" }}>
                         <ul className="space-y-2">
+                            <li className="flex gap-2 m-1 items-center border-b-2 rounded border-gray-300 mb-3 cursor-pointer">
+                                <div className="mb-2 flex gap-2">
+                                    <FaUserAlt className="text-md mt-1" />
+                                    <Link to="/profile">{!!user && (
+                                        <span className="text-md font-semibold">{user.username}</span>
+                                    )}</Link>
+                                </div>
+                            </li>
                             <li className="flex gap-2 items-center cursor-pointer">
                                 <FaCrown />
                                 <Link to="/purchase">Purchase</Link>

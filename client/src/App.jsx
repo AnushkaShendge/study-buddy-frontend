@@ -5,27 +5,26 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import ChatPDF from './pages/ChatPdf'
 import { useContext } from 'react'
-import { UserContext, UserContextProvider } from './UserContext'
+import { UserContext } from './UserContext'
 import { Navigate } from 'react-router-dom'
 
 
 function App() {
+  const { user } = useContext(UserContext)
 
   return (
-    <UserContextProvider>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<Login  />} />
         <Route path='/register' element={<Register />} />
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={(user) ? <Dashboard />  : <Navigate to='/' replace />} 
         />
         <Route
           path="/dashboard/pdf"
-          element={ <ChatPDF />}
+          element={(user) ? <ChatPDF />  : <Navigate to='/' replace /> } 
         />
       </Routes>
-    </UserContextProvider>
   )
 }
 

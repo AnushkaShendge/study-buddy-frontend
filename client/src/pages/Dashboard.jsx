@@ -8,7 +8,7 @@ import card5 from '../assets/card5.svg';
 import card6 from '../assets/card6.svg';
 import Big from '../assets/BigCard.svg'
 import { ThemeContext } from '../ThemeContext';
-import Chatbot from './Chatbot'; // Import the Chatbot component
+import Chatbot from './Chatbot'; 
 
 function Dashboard() {
   const { theme } = useContext(ThemeContext);

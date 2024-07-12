@@ -1,14 +1,18 @@
-import { useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import loginImg from '../assets/Robot.jpg';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { UserContext } from '../UserContext';
 
+
+
+
 function Login() {
-    const {setUser , user} = useContext(UserContext)
+
+    const {setUser , setReady} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -29,9 +33,8 @@ function Login() {
             const { email, username } = decoded;
 
             setUser({ email, username });
+            setReady(true)
             setRedirect(true);
-            console.log(user)
-
         }
     }
     if (redirect) {

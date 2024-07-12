@@ -4,13 +4,16 @@ import App from './App.jsx'
 import { ThemeContextProvider } from './ThemeContext.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
+import { UserContextProvider } from './UserContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeContextProvider>
+    <UserContextProvider>
+      <ThemeContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeContextProvider>
+    </UserContextProvider>
   </React.StrictMode>,
 )
