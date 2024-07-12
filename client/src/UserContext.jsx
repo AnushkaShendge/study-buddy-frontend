@@ -13,6 +13,7 @@ export function UserContextProvider({children}){
         .then(({ data }) => {
             setUser(data);
             setReady(true)
+            console.log('hii')
         })
         .catch(err => {
             console.error("Error fetching profile:", err);

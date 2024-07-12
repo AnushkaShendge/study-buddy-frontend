@@ -10,7 +10,6 @@ import { Navigate } from 'react-router-dom'
 
 
 function App() {
-  const {user} = useContext(UserContext)
 
   return (
     <UserContextProvider>
@@ -19,11 +18,11 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route
           path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/" replace />}
+          element={<Dashboard />}
         />
         <Route
           path="/dashboard/pdf"
-          element={user ? <ChatPDF /> : <Navigate to="/" replace />}
+          element={ <ChatPDF />}
         />
       </Routes>
     </UserContextProvider>
