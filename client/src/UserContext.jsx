@@ -8,6 +8,7 @@ export function UserContextProvider({ children }) {
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
+        console.log("Inside useEffect"); 
         const token = localStorage.getItem('token');
         if (token) {
             axios.get('http://localhost:8000/user/', {
@@ -24,6 +25,8 @@ export function UserContextProvider({ children }) {
             console.error("No token found");
         }
     }, []); 
+
+    console.log("User state:", user); 
 
     return (
         <UserContext.Provider value={{ user, setUser, ready }}>
