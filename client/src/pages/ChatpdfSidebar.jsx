@@ -9,6 +9,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
     const { theme } = useContext(ThemeContext);
     const [expanded, setExpanded] = useState(isOpen);
     const [pdfs, setPdfs] = useState([]);
+    const [compUp , setCompUp] = useState(false)
 
     useEffect(() => {
         setExpanded(isOpen);
@@ -16,7 +17,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
 
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
-        setPdfs(files);
+        setPdfs(files);        
     };
 
     const handleUpload = async () => {
@@ -31,6 +32,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            setCompUp(true)
             console.log('Upload successful', response.data);
         } catch (error) {
             console.error('Error uploading PDFs', error);
@@ -46,22 +48,32 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                     </button>
                 </div>
                 <div className={`flex flex-col items-center ${expanded ? "opacity-100" : "opacity-0 overflow-hidden"} transition-opacity duration-300`}>
-                    <img src={robot} alt="Robot" className="mb-6 h-72" />
+                    <img src={robot} alt="Robot" className="mb-5 h-56" />
                     <div className="text-center">
-                        <h1 className={`text-2xl flex gap-4 font-bold mb-4 leading-5 ${expanded ? '' : 'hidden'}`}>
+                        <h1 className={`text-2xl flex items-center justify-center gap-4 font-bold mb-4 leading-5 ${expanded ? '' : 'hidden'}`}>
                             <FaFileDownload size={35} className="text-yellow-400" />
                             PDF File's Section
                         </h1>
-                        <input 
-                            type="file" 
-                            multiple 
-                            onChange={handleFileChange} 
-                            className={`mb-2 ${expanded ? '' : 'hidden'}`} 
-                        />
-                        <p className={`text-md mb-3 ${expanded ? '' : 'hidden'}`}>Upload your PDF Files & Click on the Submit & Process Button</p>
-                        <div className="flex items-center justify-center mt-3">
+                        <div className={`${expanded ? 'bg-gray-100' : 'bg-gray-400'} rounded-xl w-80 p-1 ml-3`}>
+                            <div className="text-xs">Drag and drop the file here</div>
+                            <input 
+                                type="file" 
+                                multiple 
+                                onChange={handleFileChange} 
+                                className={`m-2 ml-16  ${expanded ? '' : 'hidden'} ` } 
+                            />
+                            <div className="my-1 flex items-center justify-center">
+                                {compUp ? (
+                                    <div className="border-2 text-sm rounded-lg border-green-500 p-1 bg-green-200">Processed</div>
+                                ) : (
+                                    <div className="border-2 text-sm rounded-lg border-red-600 p-1 bg-red-300">Not Processed</div>
+                                )}
+                            </div>
+                        </div>
+                        <p className={`text-sm  m-3 ${expanded ? '' : 'hidden'}`}>Upload your PDF Files & Click on the Submit & Process Button</p>
+                        <div className="flex items-center justify-center mt-2">
                             <button 
-                                className={`bg-blue-500 text-white gap-2 flex py-2 px-4 rounded-lg hover:bg-blue-600 ${expanded ? '' : 'hidden'}`} 
+                                className={`bg-gradient-to-r from-orange-200 to-orange-300 mb-1 text-white gap-2 flex py-2 px-4 rounded-lg w-80 items-center justify-center hover:bg-gradient-to-r hover:from-orange-300 hover:to-orange-400 ${expanded ? '' : 'hidden'}`} 
                                 onClick={handleUpload}
                             >
                                 Upload PDFs

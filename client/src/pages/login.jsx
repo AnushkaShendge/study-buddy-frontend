@@ -12,7 +12,7 @@ import { UserContext } from '../UserContext';
 
 function Login() {
 
-    const {setUser , setReady} = useContext(UserContext)
+    const {login} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -32,8 +32,9 @@ function Login() {
             const decoded = jwtDecode(token);
             const { email, username } = decoded;
 
-            setUser({ email, username });
-            setReady(true)
+            const userData = { email, username };
+            login(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
             setRedirect(true);
         }
     }

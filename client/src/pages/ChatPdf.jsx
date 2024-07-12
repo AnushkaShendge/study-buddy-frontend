@@ -47,7 +47,7 @@ function ChatPdf() {
               value={question} 
               onChange={handleQuestionChange} 
               placeholder="What are the pros of clustering" 
-              className="w-full p-2 border rounded mb-4" 
+              className="w-full p-2 border rounded mb-4 text-black" 
             />
             <button 
               onClick={handleSubmit} 
@@ -56,9 +56,9 @@ function ChatPdf() {
               Submit
             </button>
           </div>
-          <div className="mt-6 w-full max-w-md">
-            <p className="font-semibold">Reply:</p>
-            <p className="mt-2">{reply}</p>
+          <div className="mt-6 w-full max-w-md border p-2 bg-gradient-to-r rounded-md from-cyan-100 to-blue-300">
+            <p className="font-semibold m-1">Reply:</p>
+            <p className="mt-2 text-md">{reply}</p>
           </div>
         </div>
       </main>
