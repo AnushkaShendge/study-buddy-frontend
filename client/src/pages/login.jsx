@@ -4,15 +4,16 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
-import jwt_decode from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode';
 import { UserContext } from '../UserContext';
 
 function Login() {
-    const {setUser} = useContext(UserContext)
+    const {setUser , user} = useContext(UserContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [redirect, setRedirect] = useState(false);
+
 
     const handlePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -24,12 +25,12 @@ function Login() {
 
         if (response.data && response.data.token) {
             const token = response.data.token
-            const decoded = jwt_decode(token);
+            const decoded = jwtDecode(token);
             const { email, username } = decoded;
 
             setUser({ email, username });
             setRedirect(true);
-
+            console.log(user)
 
         }
     }
