@@ -22,9 +22,6 @@ function Login() {
 
         if (response.data) {
             setRedirect(true);
-            if(response.data.token){
-                localStorage.setItem('token', response.data.token);
-            }
         }
     }
     if (redirect) {
