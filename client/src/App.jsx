@@ -1,28 +1,33 @@
-import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import ChatPDF from './pages/ChatPdf';
-import { useContext } from 'react';
-import { UserContext, UserContextProvider } from './UserContext';
+import './App.css'
+import {Routes , Route} from 'react-router-dom'
+import Login from './pages/login'
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
+import ChatPDF from './pages/ChatPdf'
+import { useContext } from 'react'
+import { UserContext, UserContextProvider } from './UserContext'
+import { Navigate } from 'react-router-dom'
+
 
 function App() {
+  const {user} = useContext(UserContext)
+
   return (
     <UserContextProvider>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <PrivateRoute path="/dashboard" element={<Dashboard />} />
-        <PrivateRoute path="/dashboard/pdf" element={<ChatPDF />} />
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/dashboard/pdf"
+          element={user ? <ChatPDF /> : <Navigate to="/" replace />}
+        />
       </Routes>
     </UserContextProvider>
-  );
-}
-function PrivateRoute({ element }) {
-  const { user } = useContext(UserContext);
-
-  return user ? element : <Navigate to="/" replace />;
+  )
 }
 
-export default App;
+export default App
