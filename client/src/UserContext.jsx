@@ -24,7 +24,7 @@ export function UserContextProvider({ children }) {
         } else {
             console.error("No token found");
         }
-    }, []); 
+    }, [user]); 
 
     console.log("User state:", user); 
 
