@@ -4,7 +4,7 @@ import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
-import jwtDecode from 'jwt-decode'
+import jwt_decode from 'jwt-decode'
 import { UserContext } from '../UserContext';
 
 function Login() {
@@ -24,7 +24,7 @@ function Login() {
 
         if (response.data && response.data.token) {
             const token = response.data.token
-            const decoded = jwtDecode(token);
+            const decoded = jwt_decode(token);
             const { email, username } = decoded;
 
             setUser({ email, username });
