@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.get('http://localhost:8000/user', {
+            axios.get('http://localhost:8000/user/', {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
             .then(({ data }) => {
