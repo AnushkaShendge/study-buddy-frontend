@@ -45,7 +45,7 @@ function Practice() {
         const formattedDate = formatDate(currentDate);
         const res = await axios.get(`http://localhost:8000/todolist/assignments/${formattedDate}/` , {
             headers: {
-                'Authorization': `${localStorage.getItem('token')}` 
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
         setAssignments(res.data.assignment);
@@ -55,7 +55,7 @@ function Practice() {
         const formattedDate = formatDate(currentDate);
         const res = await axios.get(`http://localhost:8000/selfstudy/${formattedDate}/` , {
             headers: {
-                'Authorization': `${localStorage.getItem('token')}` 
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
         setSelfStudy(res.data.selfStudy);
@@ -71,7 +71,7 @@ function Practice() {
     const completeAssignment = (assignmentId) => {
         axios.post(`http://localhost:8000/todolist/complete_assignments/${assignmentId}/` , {
             headers: {
-                'Authorization': `${localStorage.getItem('token')}` 
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
             .then(() => {
@@ -83,7 +83,7 @@ function Practice() {
     const completeSelfStudy = (selfStudyId) => {
         axios.post(`http://localhost:8000/todolist/complete_selfstudy/${selfStudyId}/` , {
             headers: {
-                'Authorization': `${localStorage.getItem('token')}` 
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
             .then(() => {

@@ -21,7 +21,7 @@ function PopupForm1({ handleClose }) {
         e.preventDefault();
         const res = await axios.post('http://localhost:8000/todolist/create_assignments/' , {subject , chapter , deadline} , {
             headers: {
-              'Authorization': `${localStorage.getItem('token')}` 
+              'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
         if(res.data){

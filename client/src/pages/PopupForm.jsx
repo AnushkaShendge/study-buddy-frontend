@@ -15,7 +15,7 @@ function PopupForm({ handleClose }) {
         e.preventDefault();
         const res = await axios.post('http://localhost:8000/todolist/create_selfstudy/' , {subject , deadline} , {
             headers: {
-              'Authorization': `${localStorage.getItem('token')}` 
+              'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
         if(res.data){
