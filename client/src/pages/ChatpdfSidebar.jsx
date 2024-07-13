@@ -34,6 +34,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
             });
             setCompUp(true)
             console.log('Upload successful', response.data);
+            alert('Upload successful')
         } catch (error) {
             console.error('Error uploading PDFs', error);
         }
@@ -60,7 +61,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                                 type="file" 
                                 multiple 
                                 onChange={handleFileChange} 
-                                className={`m-2 ml-16  ${expanded ? '' : 'hidden'} ` } 
+                                className={`m-2 ml-16 w-full h-full  ${expanded ? '' : 'hidden'} ` } 
                             />
                             <div className="my-1 flex items-center justify-center">
                                 {compUp ? (
@@ -70,7 +71,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                                 )}
                             </div>
                         </div>
-                        <p className={`text-sm  m-3 ${expanded ? '' : 'hidden'}`}>Upload your PDF Files & Click on the Submit & Process Button</p>
+                        <p className={`text-xs  m-3 ${expanded ? '' : 'hidden'}`}>Upload your PDF Files & Click on the Upload Button</p>
                         <div className="flex items-center justify-center mt-2">
                             <button 
                                 className={`bg-gradient-to-r from-orange-200 to-orange-300 mb-1 text-white gap-2 flex py-2 px-4 rounded-lg w-80 items-center justify-center hover:bg-gradient-to-r hover:from-orange-300 hover:to-orange-400 ${expanded ? '' : 'hidden'}`} 

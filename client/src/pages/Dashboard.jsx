@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SideBarComp from './SideBarComp';
 import card1 from '../assets/card1.svg';
 import card2 from '../assets/card2.svg';
@@ -6,9 +7,9 @@ import card3 from '../assets/card3.svg';
 import card4 from '../assets/card4.svg';
 import card5 from '../assets/card5.svg';
 import card6 from '../assets/card6.svg';
-import Big from '../assets/BigCard.svg'
+import Big from '../assets/BigCard.svg';
 import { ThemeContext } from '../ThemeContext';
-import Chatbot from './Chatbot'; 
+import Chatbot from './Chatbot';
 
 function Dashboard() {
   const { theme } = useContext(ThemeContext);
@@ -40,45 +41,45 @@ function Dashboard() {
         </div>
         <h3 className="text-2xl font-bold mb-4">Meet Your DOSTS</h3>
         <div className={`grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-4 ${theme === 'light' ? '' : 'text-black'}`}>
-          <div className="bg-yellow-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          <Link to="/study-material-dost" className="bg-yellow-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card1} alt="Study Material DOST" className="w-40 h-40 mx-4" />
             <div>
               <h4 className="text-sm font-semibold">Study Material DOST</h4>
               <p className="text-gray-600">(Full Syllabus)</p>
             </div>
-          </div>
-          <div className="bg-green-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          </Link>
+          <Link to="/practice-dost" className="bg-green-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card2} alt="Practice DOST" className="w-40 h-40 mx-4" />
             <div>
               <h4 className="text-sm font-semibold">Practice DOST</h4>
             </div>
-          </div>
-          <div className="bg-purple-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          </Link>
+          <Link to="/formula-sheet-dost" className="bg-purple-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card3} alt="Formula Sheet DOST" className="w-40 h-40 mx-4" />
             <div>
               <h4 className="text-sm font-semibold">Formula Sheet DOST</h4>
             </div>
-          </div>
+          </Link>
         </div>
         <div className={`grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${theme === 'light' ? '' : 'text-black'}`}>
-          <div className="bg-orange-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
-            <img src={card4} alt="Study Material DOST" className="w-40 h-40 mx-4" />
+          <Link to="/backlog-remover-dost" className="bg-orange-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+            <img src={card4} alt="Backlog Remover DOST" className="w-40 h-40 mx-4" />
             <div>
-              <h4 className="text-sm font-semibold">Backlog remover DOST</h4>
+              <h4 className="text-sm font-semibold">Backlog Remover DOST</h4>
             </div>
-          </div>
-          <div className="bg-pink-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
-            <img src={card5} alt="Practice DOST" className="w-40 h-40 mx-4" />
+          </Link>
+          <Link to="/revision-dost" className="bg-pink-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+            <img src={card5} alt="Revision DOST" className="w-40 h-40 mx-4" />
             <div>
-              <h4 className="text-sm font-semibold">Practice DOST</h4>
+              <h4 className="text-sm font-semibold">Revision DOST</h4>
             </div>
-          </div>
-          <div className="bg-indigo-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
-            <img src={card6} alt="Formula Sheet DOST" className="w-40 h-40 mx-4" />
+          </Link>
+          <Link to="/speed-booster-dost" className="bg-indigo-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+            <img src={card6} alt="Speed Booster DOST" className="w-40 h-40 mx-4" />
             <div>
-              <h4 className="text-sm font-semibold">Speed Booster Dost</h4>
+              <h4 className="text-sm font-semibold">Speed Booster DOST</h4>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div>
