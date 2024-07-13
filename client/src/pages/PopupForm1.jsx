@@ -96,7 +96,7 @@ function PopupForm1({ handleClose }) {
                                                 }}
                                                 className="p-2 hover:bg-gray-200 cursor-pointer"
                                             >
-                                                {chapter}
+                                                {chap}
                                             </div>
                                         ))}
                                     </div>
