@@ -13,7 +13,7 @@ function PopupForm({ handleClose }) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const res = await axios.post('http://localhost:8000/todolist/create_selfstudy' , {subject , deadline} , {
+        const res = await axios.post('http://localhost:8000/todolist/create_selfstudy/' , {subject , deadline} , {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }

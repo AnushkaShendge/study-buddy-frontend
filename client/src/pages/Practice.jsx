@@ -43,13 +43,13 @@ function Practice() {
 
     async function fetchAssignment(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/todolist/assignments/${formattedDate}`);
+        const res = await axios.get(`http://localhost:8000/todolist/assignments/${formattedDate}/`);
         setAssignments(res.data.assignment);
     }
 
     async function fetchSelfStudy(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/selfstudy/${formattedDate}`);
+        const res = await axios.get(`http://localhost:8000/selfstudy/${formattedDate}/`);
         setSelfStudy(res.data.selfStudy);
     }
 
