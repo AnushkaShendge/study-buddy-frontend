@@ -43,13 +43,13 @@ function Practice() {
 
     async function fetchAssignment(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/todolist/assignment?date=${formattedDate}`);
+        const res = await axios.get(`http://localhost:8000/todolist/assignments/?${formattedDate}`);
         setAssignments(res.data.assignment);
     }
 
     async function fetchSelfStudy(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/selfStudy?date=${formattedDate}`);
+        const res = await axios.get(`http://localhost:8000/selfstudy?${formattedDate}`);
         setSelfStudy(res.data.selfStudy);
     }
 
@@ -61,7 +61,7 @@ function Practice() {
     }
 
     const completeAssignment = (assignmentId) => {
-        axios.post(`http://localhost:8000/todolist/assignment/complete_assignments/${assignmentId}/`)
+        axios.post(`http://localhost:8000/todolist/complete_assignments/${assignmentId}/`)
             .then(() => {
                 fetchAssignment(currentDate);
             })
@@ -69,7 +69,7 @@ function Practice() {
     };
 
     const completeSelfStudy = (selfStudyId) => {
-        axios.post(`http://localhost:8000/todolist/selfStudy/complete_selfstudy/${selfStudyId}/`)
+        axios.post(`http://localhost:8000/todolist/complete_selfstudy/${selfStudyId}/`)
             .then(() => {
                 fetchSelfStudy(currentDate);
             })
