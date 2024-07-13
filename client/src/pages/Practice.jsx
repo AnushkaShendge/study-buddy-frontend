@@ -11,13 +11,17 @@ import axios from "axios";
 function Practice() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const { theme } = useContext(ThemeContext);
-    const [popUp, setPopUp] = useState(false);
+    const [popUpAssignment, setPopUpAssignment] = useState(false);
+    const [popUpSelfStudy, setPopUpSelfStudy] = useState(false);
     const [assignments, setAssignments] = useState([]);
     const [selfStudy, setSelfStudy] = useState([]);
 
-    
-    function handleAdd() {
-        setPopUp(!popUp);
+    function handleAddAssignment() {
+        setPopUpAssignment(!popUpAssignment);
+    }
+
+    function handleAddSelfStudy() {
+        setPopUpSelfStudy(!popUpSelfStudy);
     }
 
     function handlePrevDate() {
@@ -94,20 +98,20 @@ function Practice() {
                     </div>
                 </header>
                 <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mb-4 px-10">
-                    <div onClick={handleAdd} className="bg-gray-100 text-black p-4 rounded-xl flex items-center justify-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+                    <div onClick={handleAddAssignment} className="bg-gray-100 text-black p-4 rounded-xl flex items-center justify-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
                         <HiFolderPlus size={40} className="mr-4 text-blue-600" />
                         <div>
                             <h4 className="text-md font-semibold">Add Assignment</h4>
                         </div>
                     </div>
-                    {popUp && <PopupForm1 handleClose={handleAdd} />}
-                    <div onClick={handleAdd} className="bg-gray-100 text-black p-4 rounded-xl flex items-center justify-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+                    {popUpAssignment && <PopupForm1 handleClose={handleAddAssignment} />}
+                    <div onClick={handleAddSelfStudy} className="bg-gray-100 text-black p-4 rounded-xl flex items-center justify-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
                         <HiFolderPlus size={40} className="mr-4 text-blue-600" />
                         <div>
                             <h4 className="text-md font-semibold">Add Self Study</h4>
                         </div>
                     </div>
-                    {popUp && <PopupForm handleClose={handleAdd} />}
+                    {popUpSelfStudy && <PopupForm handleClose={handleAddSelfStudy} />}
                 </div>
                 <div className="border border-lg shadow-sm m-10 p-8 rounded-xl">
                     <h2 className="text-2xl text-orange-300 font-light text-center mb-8">Assignments for {currentDate.toDateString()}</h2>
