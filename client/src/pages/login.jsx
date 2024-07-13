@@ -29,6 +29,7 @@ function Login() {
 
         if (response.data && response.data.token) {
             const token = response.data.token
+            localStorage.setItem('token' , token);
             const decoded = jwtDecode(token);
             const { email, username } = decoded;
 
