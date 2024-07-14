@@ -13,7 +13,7 @@ function App() {
   const { user, ready } = useContext(UserContext);
 
   if (!ready) {
-    return <div className='flex items-center justify-center gap-2 text-lg'><ImSpinner3 className='text-lg' />Loading...</div>;
+    return <div className='flex items-center w-full h-full justify-center gap-2 text-lg'><ImSpinner3 className='text-lg' />Loading...</div>;
   }
 
   return (

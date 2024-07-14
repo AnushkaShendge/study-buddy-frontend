@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import axios from "axios";
 
-function PopupForm({ handleClose }) {
+function PopupForm({ handleClose , onAddSelfStudy }) {
     const [subject, setSubject] = useState("");
     const [chapter, setChapter] = useState("");
     const [deadline, setDeadline] = useState("");
@@ -21,6 +21,7 @@ function PopupForm({ handleClose }) {
         if(res.data){
             alert("Self Study Assignment added successfully")
             handleClose();
+            onAddSelfStudy();
         }
     };
 

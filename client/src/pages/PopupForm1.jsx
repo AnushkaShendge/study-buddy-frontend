@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import axios from "axios";
 
-function PopupForm1({ handleClose }) {
+function PopupForm1({ handleClose , onAssignmentAdded }) {
     const [subject, setSubject] = useState("");
     const [chapter, setChapter] = useState("");
     const [deadline, setDeadline] = useState("");
@@ -27,6 +27,7 @@ function PopupForm1({ handleClose }) {
         if(res.data){
             alert("Assignment added successfully")
             handleClose();
+            onAssignmentAdded();
         }
     };
 

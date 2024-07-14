@@ -7,6 +7,10 @@ import PopupForm from "./PopupForm";
 import PopupForm1 from "./PopupForm1";
 import { PiEmptyBold } from "react-icons/pi";
 import axios from "axios";
+import { MdDelete } from "react-icons/md";
+import { MdOutlineDoneOutline } from "react-icons/md";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+
 
 function Practice() {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -15,6 +19,11 @@ function Practice() {
     const [popUpSelfStudy, setPopUpSelfStudy] = useState(false);
     const [assignments, setAssignments] = useState([]);
     const [selfStudy, setSelfStudy] = useState([]);
+
+    useEffect(() => {
+        fetchAssignment(currentDate);
+        fetchSelfStudy(currentDate);
+    }, [currentDate]);
 
     function handleAddAssignment() {
         setPopUpAssignment(!popUpAssignment);
@@ -36,10 +45,6 @@ function Practice() {
         setCurrentDate(nextDate);
     }
 
-    useEffect(() => {
-        fetchAssignment(currentDate);
-        fetchSelfStudy(currentDate);
-    }, [currentDate]);
 
     async function fetchAssignment(currentDate) {
         const formattedDate = formatDate(currentDate);
@@ -90,6 +95,26 @@ function Practice() {
             fetchSelfStudy(currentDate);
         }
     };
+    const deleteAssignment = async(assignmentId) => {
+        const res = await axios.delete(`http://localhost:8000/todolist/delete_assignments/${assignmentId}/` , {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+            }
+        });
+        if(res.data){
+            fetchAssignment(currentDate);
+        }
+    }
+    const deleteSelfStudy = async(selfStudyId) => {
+        const res = await axios.delete(`http://localhost:8000/todolist/delete_selfstudy/${selfStudyId}/` , {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+            }
+        });
+        if(res.data){
+            fetchSelfStudy(currentDate);
+        }
+    }
 
     return (
         <div className="flex">
@@ -119,21 +144,21 @@ function Practice() {
                             <h4 className="text-md font-semibold">Add Assignment</h4>
                         </div>
                     </div>
-                    {popUpAssignment && <PopupForm1 handleClose={handleAddAssignment} />}
+                    {popUpAssignment && <PopupForm1 handleClose={handleAddAssignment} onAssignmentAdded={fetchAssignment(currentDate)} />}
                     <div onClick={handleAddSelfStudy} className="bg-gray-100 text-black p-4 rounded-xl flex items-center justify-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
                         <HiFolderPlus size={40} className="mr-4 text-blue-600" />
                         <div>
                             <h4 className="text-md font-semibold">Add Self Study</h4>
                         </div>
                     </div>
-                    {popUpSelfStudy && <PopupForm handleClose={handleAddSelfStudy} />}
+                    {popUpSelfStudy && <PopupForm handleClose={handleAddSelfStudy} onAddSelfStudy={fetchSelfStudy(currentDate)} />}
                 </div>
                 <div className="border border-lg shadow-sm m-10 p-8 rounded-xl">
                     <h2 className="text-2xl text-orange-300 font-light text-center mb-8">Assignments for {currentDate.toDateString()}</h2>
-                    <div className={assignments.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" : "flex justify-center items-center h-full"}>
+                    <div className={assignments.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" : "flex justify-center items-center h-full"}>
                         {assignments.length > 0 ? (
                             assignments.map(assignment => (
-                                <AssignmentBox key={assignment.uuid} assignment={assignment} onComplete={() => completeAssignment(assignment.uuid)} />
+                                <AssignmentBox key={assignment.uuid} assignment={assignment} onComplete={() => completeAssignment(assignment.uuid)  } onDelete={() => deleteAssignment(assignment.uuid)} />
                             ))
                         ) : (
                             <p className="font-bold border rounded-xl p-4 bg-orange-500 flex items-center justify-center">
@@ -144,10 +169,10 @@ function Practice() {
                 </div>
                 <div className="border border-lg shadow-sm m-10 p-8 rounded-xl">
                     <h2 className="text-2xl text-orange-300 font-light text-center mb-8">Self Study Assignments for {currentDate.toDateString()}</h2>
-                    <div className={selfStudy.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" : "flex justify-center items-center h-full"}>
+                    <div className={selfStudy.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" : "flex justify-center items-center h-full"}>
                         {selfStudy.length > 0 ? (
                             selfStudy.map(selfStudy => (
-                                <SelfStudyBox key={selfStudy.uuid} selfStudy={selfStudy} onComplete={() => completeSelfStudy(selfStudy.uuid)} />
+                                <SelfStudyBox key={selfStudy.uuid} selfStudy={selfStudy} onComplete={() => completeSelfStudy(selfStudy.uuid)} onDelete={() => deleteSelfStudy(selfStudy.uuid)} />
                             ))
                         ) : (
                             <p className="font-bold border rounded-xl p-4 bg-orange-500 flex items-center justify-center">
@@ -163,30 +188,31 @@ function Practice() {
 
 export default Practice;
 
-const AssignmentBox = ({ assignment, onComplete }) => (
-    <div className={`bg-gradient-to-r from-orange-300 to-orange-400 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out ${assignment.completed ? 'bg-gradient-to-r from-green-200 to-green-300' : ''} `}>
-        <h3 className="text-lg font-semibold text-center">{assignment.subject}</h3>
-        <p className="text-sm text-gray-600 text-center mt-2">{assignment.chapter}</p>
-        <div className="flex justify-center items-center mt-4">
+const AssignmentBox = ({ assignment, onComplete , onDelete }) => (
+    <div className={` p-4 rounded-xl  shadow-md hover:shadow-lg transition duration-500 hover:scale-110 ease-in-out ${assignment.completed ? 'bg-gradient-to-r from-green-200 to-green-400' : 'bg-gradient-to-r from-orange-500 to-red-500'} `}>
+        <h3 className="text-xl font-semibold text-center">{assignment.subject}</h3>
+        <p className="text-lg text-white  text-center mt-2">{assignment.chapter}</p>
+        <div className="flex justify-between items-center mt-4">
             {assignment.completed ? (
-                <span className="text-black bg-green-500 px-2 py-1  rounded-md">Completed</span>
+                <span className="text-black bg-green-500 px-2 py-1  rounded-md"><IoCheckmarkDoneCircle size={35} /></span>
             ) : (
-                <button onClick={onComplete} className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-300 ease-in-out">Complete</button>
+                <button onClick={onComplete} className="bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition duration-300 ease-in-out"><MdOutlineDoneOutline size={24} className="text-white" /></button>
             )}
+                <button onClick={onDelete} className="bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition duration-300 ease-in-out"><MdDelete size={24} className="text-white" /></button>
         </div>
     </div>
 );
 
-const SelfStudyBox = ({ selfStudy, onComplete }) => (
-    <div className={`bg-gradient-to-r from-orange-300 to-orange-400 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out ${selfStudy.completed ? 'bg-gradient-to-r from-green-200 to-green-300' : ''}`}>
-        <h3 className="text-lg font-semibold text-center">{selfStudy.subject}</h3>
-        <p className="text-sm text-gray-600 text-center mt-2">{selfStudy.chapter}</p>
-        <div className="flex justify-center items-center mt-4">
+const SelfStudyBox = ({ selfStudy, onComplete , onDelete }) => (
+    <div className={`p-4 rounded-xl shadow-md hover:shadow-lg transition duration-500 hover:scale-110 ease-in-out ${selfStudy.completed ? 'bg-gradient-to-r from-green-200 to-green-400' : 'bg-gradient-to-r from-cyan-500 to-blue-500'}`}>
+        <h3 className="text-xl font-semibold text-center">{selfStudy.subject}</h3>
+        <div className="flex justify-between items-center mt-4">
             {selfStudy.completed ? (
-                <span className="text-black bg-green-500 px-2 py-1 rounded-md">Completed</span>
+                <span className="text-black bg-green-500 px-2 py-1 rounded-md"><IoCheckmarkDoneCircle size={35} /></span>
             ) : (
-                <button onClick={onComplete} className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-300 ease-in-out">Complete</button>
+                <button onClick={onComplete} className="bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition duration-300 ease-in-out"><MdOutlineDoneOutline size={24} className="text-white" /></button>
             )}
+                 <button onClick={onDelete} className="bg-gray-600 text-white p-2 rounded hover:bg-gray-800 transition duration-300 ease-in-out"><MdDelete size={24} className="text-white" /></button>
         </div>
     </div>
 );
