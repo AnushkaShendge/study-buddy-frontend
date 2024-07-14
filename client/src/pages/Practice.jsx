@@ -134,7 +134,7 @@ function Practice() {
                     <div className={assignments.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" : "flex justify-center items-center h-full"}>
                         {assignments.length > 0 ? (
                             assignments.map(assignment => (
-                                <AssignmentBox key={assignment._id} assignment={assignment} onComplete={() => completeAssignment(assignment._id)} />
+                                <AssignmentBox key={assignment.uuid} assignment={assignment} onComplete={() => completeAssignment(assignment.uuid)} />
                             ))
                         ) : (
                             <p className="font-bold border rounded-xl p-4 bg-orange-500 flex items-center justify-center">
@@ -148,7 +148,7 @@ function Practice() {
                     <div className={selfStudy.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" : "flex justify-center items-center h-full"}>
                         {selfStudy.length > 0 ? (
                             selfStudy.map(selfStudy => (
-                                <SelfStudyBox key={selfStudy._id} selfStudy={selfStudy} onComplete={() => completeSelfStudy(selfStudy._id)} />
+                                <SelfStudyBox key={selfStudy.uuid} selfStudy={selfStudy} onComplete={() => completeSelfStudy(selfStudy.uuid)} />
                             ))
                         ) : (
                             <p className="font-bold border rounded-xl p-4 bg-orange-500 flex items-center justify-center">
@@ -165,28 +165,28 @@ function Practice() {
 export default Practice;
 
 const AssignmentBox = ({ assignment, onComplete }) => (
-    <div className="bg-orange-50 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+    <div className={`bg-gradient-to-r from-orange-300 to-orange-400 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out ${assignment.completed ? 'bg-gradient-to-r from-green-200 to-green-300' : ''} `}>
         <h3 className="text-lg font-semibold text-center">{assignment.subject}</h3>
         <p className="text-sm text-gray-600 text-center mt-2">{assignment.chapter}</p>
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-center items-center mt-4">
             {assignment.completed ? (
-                <span className="text-green-700 bg-green-100 px-2 py-1 rounded-md">Completed</span>
+                <span className="text-black bg-green-500 px-2 py-1  rounded-md">Completed</span>
             ) : (
-                <button onClick={onComplete} className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out">Complete</button>
+                <button onClick={onComplete} className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-300 ease-in-out">Complete</button>
             )}
         </div>
     </div>
 );
 
 const SelfStudyBox = ({ selfStudy, onComplete }) => (
-    <div className="bg-orange-50 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+    <div className={`bg-gradient-to-r from-orange-300 to-orange-400 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out ${assignment.completed ? 'bg-gradient-to-r from-green-200 to-green-300' : ''}`}>
         <h3 className="text-lg font-semibold text-center">{selfStudy.subject}</h3>
         <p className="text-sm text-gray-600 text-center mt-2">{selfStudy.chapter}</p>
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-center items-center mt-4">
             {selfStudy.completed ? (
-                <span className="text-green-700 bg-green-100 px-2 py-1 rounded-md">Completed</span>
+                <span className="text-black bg-green-500 px-2 py-1 rounded-md">Completed</span>
             ) : (
-                <button onClick={onComplete} className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300 ease-in-out">Complete</button>
+                <button onClick={onComplete} className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-300 ease-in-out">Complete</button>
             )}
         </div>
     </div>
