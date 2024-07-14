@@ -74,6 +74,7 @@ function Practice() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
+        console,log(localStorage.getItem('token'))
             .then((response) => {
                 fetchAssignment(currentDate);
             })
