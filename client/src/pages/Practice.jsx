@@ -74,7 +74,7 @@ function Practice() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
-            .then(() => {
+            .then((response) => {
                 fetchAssignment(currentDate);
             })
             .catch(error => console.error(error));
@@ -86,7 +86,7 @@ function Practice() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         })
-            .then(() => {
+            .then((response) => {
                 fetchSelfStudy(currentDate);
             })
             .catch(error => console.error(error));
