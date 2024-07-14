@@ -31,8 +31,8 @@ function Login() {
             const token = response.data.token
             localStorage.setItem('token' , token);
             const decoded = jwtDecode(token);
-            const { email, username } = decoded;
-
+            const { email, username , id } = decoded;
+            console.log(id);
             const userData = { email, username };
             login(userData);
             localStorage.setItem('user', JSON.stringify(userData));

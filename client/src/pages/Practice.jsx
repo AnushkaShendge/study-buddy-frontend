@@ -48,7 +48,7 @@ function Practice() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
-        setAssignments(res.data.assignment);
+        setAssignments(res.data);
     }
 
     async function fetchSelfStudy(currentDate) {
@@ -58,7 +58,7 @@ function Practice() {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
-        setSelfStudy(res.data.selfStudy);
+        setSelfStudy(res.data);
     }
 
     function formatDate(date) {
