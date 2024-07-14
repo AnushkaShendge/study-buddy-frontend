@@ -53,7 +53,7 @@ function Practice() {
 
     async function fetchSelfStudy(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/selfstudy/${formattedDate}/` , {
+        const res = await axios.get(`http://localhost:8000/todolist/selfstudy/${formattedDate}/` , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
@@ -68,28 +68,27 @@ function Practice() {
         return `${year}-${month}-${day}`;
     }
 
-    const completeAssignment = (assignmentId) => {
-        axios.post(`http://localhost:8000/todolist/complete_assignments/${assignmentId}/` , {
+    const completeAssignment = async(assignmentId) => {
+        const res = await axios.post(`http://localhost:8000/todolist/complete_assignments/${assignmentId}/` , {} , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
-        })
-            .then((response) => {
-                fetchAssignment(currentDate);
-            })
-            .catch(error => console.error(error));
+        });
+        if(res.data){
+            fetchAssignment(currentDate);
+        }
+            
     };
 
-    const completeSelfStudy = (selfStudyId) => {
-        axios.post(`http://localhost:8000/todolist/complete_selfstudy/${selfStudyId}/` , {
+    const completeSelfStudy = async(selfStudyId) => {
+        const res = await axios.post(`http://localhost:8000/todolist/complete_selfstudy/${selfStudyId}/` , {} ,  {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
-        })
-            .then((response) => {
-                fetchSelfStudy(currentDate);
-            })
-            .catch(error => console.error(error));
+        });
+        if(res.data){
+            fetchSelfStudy(currentDate);
+        }
     };
 
     return (
