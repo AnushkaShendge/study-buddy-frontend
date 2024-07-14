@@ -179,7 +179,7 @@ const AssignmentBox = ({ assignment, onComplete }) => (
 );
 
 const SelfStudyBox = ({ selfStudy, onComplete }) => (
-    <div className={`bg-gradient-to-r from-orange-300 to-orange-400 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out ${assignment.completed ? 'bg-gradient-to-r from-green-200 to-green-300' : ''}`}>
+    <div className={`bg-gradient-to-r from-orange-300 to-orange-400 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out ${selfStudy.completed ? 'bg-gradient-to-r from-green-200 to-green-300' : ''}`}>
         <h3 className="text-lg font-semibold text-center">{selfStudy.subject}</h3>
         <p className="text-sm text-gray-600 text-center mt-2">{selfStudy.chapter}</p>
         <div className="flex justify-center items-center mt-4">
