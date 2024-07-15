@@ -11,11 +11,11 @@ function Avatar({ avatars, handleClose }) {
             if (selectedAvatar) {
                 let file;
 
-                // Ensure fresh fetch of the selectedAvatar image
+                // Check if selectedAvatar is a string (URL), fetch and convert to File object
                 if (typeof selectedAvatar === 'string') {
                     const response = await fetch(selectedAvatar, { cache: 'no-cache' });
-                    file = await response.blob();
-                    file = new File([file], selectedAvatar.substring(selectedAvatar.lastIndexOf('/') + 1));
+                    const blob = await response.blob();
+                    file = new File([blob], selectedAvatar.substring(selectedAvatar.lastIndexOf('/') + 1), { type: blob.type });
                 } else {
                     file = selectedAvatar;
                 }
@@ -25,16 +25,15 @@ function Avatar({ avatars, handleClose }) {
                 formData.append('profile_image', file, file.name);
 
                 // Make the HTTP request to your backend
-                const res = await axios.put('http://localhost:8000/profile/image/', formData, {
+                const res = await axios.post('http://localhost:8000/profile/image/', formData, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'multipart/form-data',
                     },
                 });
 
                 // Handle the response
                 if (res.data && res.data.profile_image) {
-                    localStorage.setItem('Avatar', res.data.profile_image);
+                    localStorage.setItem('Avatar', selectedAvatar);
                     handleClose();
                 } else {
                     console.error('Failed to save avatar.');

@@ -30,6 +30,7 @@ function Header({ sidebarOpen }) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("theme");
+        localStorage.removeItem("Avatar")
         window.location.reload();
         setRedirect(true);
     }
