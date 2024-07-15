@@ -5,12 +5,15 @@ import { UserContext } from '../UserContext';
 import axios from 'axios';
 import EditForm from './EditForm';
 import { PiEmptyFill } from "react-icons/pi";
+import { ThemeContext } from '../ThemeContext';
 
 const Profile = () => {
   const { user } = useContext(UserContext);
   const [friends, setFriends] = useState([]);
   const [friReq, setFriReq] = useState([]);
   const [edit, setEdit] = useState(false);
+  const {theme} = useContext(ThemeContext)
+
 
   useEffect(() => {
     fetchFriends();
@@ -56,7 +59,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex">
+    <div className={`flex ${theme === 'light' ? '' : 'bg-black text-white'}`}>
       <SideBarComp />
       <div className="flex-grow mt-24">
         <div className="flex flex-col items-center">
@@ -69,7 +72,7 @@ const Profile = () => {
               <div className="w-14 h-14 mx-auto rounded-full mt-4">
                 <FaUserCircle size={60} className='text-gray-400' />
               </div>
-              <h6 className="mt-4 text-center text-xl">
+              <h6 className="mt-4 text-center text-black text-xl">
                 Hello {!!user && (
                   <span className="text-orange-600 font-bold">{user.username}</span>
                 )}

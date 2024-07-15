@@ -25,10 +25,10 @@ function Connect() {
   }
 
   return (
-    <div className="flex">
+    <div className={`flex ${theme === 'light' ? '' : 'bg-black text-white'}`}>
       <SideBarComp />
-      <div className={`flex-grow h-screen mt-24 ${theme === 'light' ? '' : 'bg-black text-white'} `}>
-        <h2 className="text-3xl text-center text-orange-400 font-bold mb-4">Connect with People</h2>
+      <div className={`flex-grow h-screen mt-24 `}>
+        <h2 className="text-3xl text-center text-orange-400 font-bold mb-8">Connect with People</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {people.length > 0 ? (
             people.map(person => (
