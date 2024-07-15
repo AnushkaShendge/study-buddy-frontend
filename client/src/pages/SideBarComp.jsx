@@ -20,7 +20,7 @@ function SideBarComp() {
             <div className="flex">
                 <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
                     <SidebarItem icon={<FaHome size={25} className="rounded-md p-1 text-orange-600 my-1" />} text="Home" to="/dashboard" active />
-                    <SidebarItem icon={<LiaUserFriendsSolid size={20} className="rounded-md text-orange-600 my-1" />} text="DOST" to="/dashboard/dost" alert />
+                    <SidebarItem icon={<LiaUserFriendsSolid size={20} className="rounded-md text-orange-600 my-1" />} text="DOST" to="/connect" alert />
                     <SidebarItem icon={<IoDocumentText size={20} className="rounded-md text-orange-600 my-1" />} text="Test Series" to="/dashboard/test" />
                     <SidebarItem icon={<BsGraphUpArrow size={20} className="rounded-md text-orange-600 my-1" />} text="Student Analysis" to="/dashboard/stats" />
                     <SidebarItem icon={<FaFilePdf size={20} className="rounded-md text-orange-600 my-1" />} text="Chat-pdf" to="/dashboard/pdf" />

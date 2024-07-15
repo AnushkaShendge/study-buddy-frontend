@@ -54,10 +54,10 @@ function Dashboard() {
               <h4 className="text-sm font-semibold">Practice DOST</h4>
             </div>
           </Link>
-          <Link to="/formula-sheet-dost" className="bg-purple-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          <Link to="/connect" className="bg-purple-100 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card3} alt="Formula Sheet DOST" className="w-40 h-40 mx-4" />
             <div>
-              <h4 className="text-sm font-semibold">Formula Sheet DOST</h4>
+              <h4 className="text-sm font-semibold">Connect with your DOST</h4>
             </div>
           </Link>
         </div>

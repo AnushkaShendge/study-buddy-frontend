@@ -8,6 +8,8 @@ import { useContext } from 'react';
 import { UserContext } from './UserContext';
 import Practice from './pages/Practice';
 import { ImSpinner3 } from "react-icons/im";
+import Profile from './pages/Profile';
+import Connect from './pages/Connect';
 
 function App() {
   const { user, ready } = useContext(UserContext);
@@ -23,6 +25,8 @@ function App() {
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to='/' replace />} />
         <Route path="/dashboard/pdf" element={user ? <ChatPDF /> : <Navigate to='/' replace />} />
         <Route path="/practice-dost" element={user ? <Practice /> : <Navigate to='/' replace />} />
+        <Route path="/profile" element={user ? <Profile /> : <Navigate to='/' replace />} />
+        <Route path="/connect" element={user ? <Connect /> : <Navigate to='/' replace />} />
       </Routes>
   );
 }

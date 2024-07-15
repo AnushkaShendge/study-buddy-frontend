@@ -36,7 +36,7 @@ function PopupForm({ handleClose , onAddSelfStudy }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black  bg-opacity-50">
-            <div className="bg-orange-100 text-black p-6 rounded-xl shadow-lg w-full max-w-md">
+            <div className="bg-gradient-to-r from-orange-200 to-red-200 text-black p-6 rounded-xl shadow-lg w-full max-w-md">
                 <h2 className="text-xl font-semibold mb-4">Add Self Study Assignment</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
