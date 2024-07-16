@@ -7,36 +7,37 @@ import EditForm from './EditForm';
 import { PiEmptyFill } from "react-icons/pi";
 import { ThemeContext } from '../ThemeContext';
 import { LiaUserPlusSolid } from "react-icons/lia";
-import one from '../assets/1.avif';
-import two from '../assets/2.avif';
-import three from '../assets/3.avif';
-import four from '../assets/4.jpg';
-import five from '../assets/5.jpg';
+import one from '../assets/4.jpg';
+import two from '../assets/42.jpg';
+import three from '../assets/43.jpg';
+import four from '../assets/44.jpg';
+import five from '../assets/45.jpg';
 import six from '../assets/6.jpg';
 import sev from '../assets/7.jpg';
 import eight from '../assets/8.jpg';
 import nine from '../assets/9.jpg';
-import ten from '../assets/10.avif';
-import ele from '../assets/11.avif';
-import twelve from '../assets/12.avif';
-import thriteen from '../assets/13.jpg';
-import fourteen from '../assets/14.jpg';
-import fifteen from '../assets/15.jpg';
-import sixteen from '../assets/16.jpg';
-import seventeen from '../assets/17.jpg';
-import q from '../assets/18.jpg';
-import w from '../assets/19.avif';
-import r from '../assets/20.avif';
-import t from '../assets/21.jpg';
-import i from '../assets/22.avif';
-import y from '../assets/23.avif';
-import o from '../assets/24.avif';
-import p from '../assets/25.avif';
-import a from '../assets/26.jpg';
-import s from '../assets/27.jpg';
-import d from '../assets/28.jpg';
-import f from '../assets/29.jpg';
-import g from '../assets/30.avif';
+import ten from '../assets/13.jpg';
+import ele from '../assets/14.jpg';
+import twelve from '../assets/15.jpg';
+import thriteen from '../assets/16.jpg';
+import fourteen from '../assets/17.jpg';
+import fifteen from '../assets/18.jpg';
+import sixteen from '../assets/21.jpg';
+import seventeen from '../assets/26.jpg';
+import q from '../assets/27.jpg';
+import w from '../assets/28.jpg';
+import r from '../assets/29.jpg';
+import t from '../assets/31.jpg';
+import i from '../assets/32.jpg';
+import y from '../assets/33.jpg';
+import o from '../assets/34.jpg';
+import p from '../assets/35.jpg';
+import a from '../assets/36.jpg';
+import s from '../assets/37.jpg';
+import d from '../assets/38.jpg';
+import f from '../assets/39.jpg';
+import g from '../assets/40.jpg';
+import l from '../assets/5.jpg';
 import Avatar from './Avatar';
 
 const Profile = () => {
@@ -62,7 +63,7 @@ async function handleAvatar() {
 
 
   const avatars = [
-    one,two , three , four , five , six , sev , eight , nine , ten , ele , twelve , thriteen , fourteen , fifteen , sixteen , seventeen , q , w , r, t , i , y , o , p, a , s, d , f , g
+    one,two , three , four , five , six , sev , eight , nine , ten , ele , twelve , thriteen , fourteen , fifteen , sixteen , seventeen , q , w , r, t , i , y , o , p, a , s, d , f , g , l
 ];
 
 function handleClickAvatar(){
@@ -122,10 +123,10 @@ function handleClickAvatar(){
       <SideBarComp />
       <div className="flex-grow mt-24 flex flex-col items-center gap-10">
         <div className="flex flex-col items-center relative">
-          <div className="flex gap-32 justify-between">
+          <div className="flex gap-40 justify-between">
             {/* Profile Card */}
-            <div className={`w-64 h-64 rounded-lg border ${theme === 'light' ? 'bg-gradient-to-br from-cyan-100 to-pink-300' : 'bg-gradient-to-br from-cyan-100 to-pink-300 text-black'} p-5 shadow-lg mb-10 flex flex-col items-center`}>
-              <div className="text-center mt-8">
+            <div className={`w-72 h-80 mt-5 rounded-lg border ${theme === 'light' ? 'bg-gradient-to-br from-cyan-100 to-pink-300' : 'bg-gradient-to-br from-cyan-100 to-pink-300 text-black'} p-5 shadow-lg mb-10 flex flex-col items-center`}>
+              <div className="text-center mt-12">
                 <h6 className="mt-4 text-center text-2xl">
                   Hello {!!user && (
                     <span className="text-orange-600 font-bold">{user.username}</span>
@@ -142,12 +143,12 @@ function handleClickAvatar(){
                 )}
               </div>
             </div>
-            <div className="flex flex-col mb-4 items-center justify-center gap-4">
-              <FaCrown size={40} className='text-yellow-400 mt-2 mr-8 -rotate-12' />
-              <div className="w-32 h-32 bg-gray-300 rounded-full flex items-center justify-center ">
-                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar' className='rounded-full'/> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
+            <div className="flex flex-col mb-4 items-center justify-center gap-1">
+              <FaCrown size={50} className='text-yellow-400 mr-8 -rotate-12' />
+              <button className="w-56 h-56 bg-gray-300 rounded-full flex items-center justify-center transition duration-500 hover:scale-110 ease-in-out">
+                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar'  className='rounded-full img' /> : <LiaUserPlusSolid size={120} className='' onClick={handleClickAvatar} />}
                 {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} handleAvatar={setPic}  />}
-              </div>
+              </button>
             </div>
           </div>
         </div>

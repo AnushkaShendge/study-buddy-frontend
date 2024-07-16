@@ -33,7 +33,7 @@ function Avatar({ avatars, handleClose , handleAvatar }) {
 
                 // Handle the response
                 if (res.data && res.data.profile_image) {
-                    handleAvatar(selectedAvatar)
+                    handleAvatar(res.data.profile_image)
                     handleClose();
                 } else {
                     console.error('Failed to save avatar.');
@@ -52,7 +52,7 @@ function Avatar({ avatars, handleClose , handleAvatar }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-gradient-to-r from-orange-200 to-red-200 text-black p-6 rounded-xl shadow-lg w-full max-w-md">
+            <div className="bg-gradient-to-r from-orange-200 to-red-200 text-black p-4 rounded-xl shadow-lg w-full max-w-md">
                 <h2 className="text-xl font-semibold mb-4 text-center text-orange-400">Add Your Avatar</h2>
                 <div className="max-h-80 overflow-y-auto">
                     <form onSubmit={handleSubmit} className="space-y-4">
