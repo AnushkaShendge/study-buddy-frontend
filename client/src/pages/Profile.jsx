@@ -38,6 +38,7 @@ import d from '../assets/38.jpg';
 import f from '../assets/39.jpg';
 import g from '../assets/40.jpg';
 import l from '../assets/5.jpg';
+import bg from '../assets/bg.jpg'
 import Avatar from './Avatar';
 
 const Profile = () => {
@@ -49,29 +50,24 @@ const Profile = () => {
   const [pop , setPop] = useState(false)
   const [pic , setPic] = useState(null);
   
-async function handleAvatar() {
-  const res = await axios.get('http://localhost:8000/profile/image2/',{
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-  },
-  })
-  if(res.data){
-    setPic(res.data.profile_image);
+  async function handleAvatar() {
+    const res = await axios.get('http://localhost:8000/profile/image2/',{
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    },
+    })
+    if(res.data){
+      setPic(res.data.profile_image);
+    }
   }
-}
-
-
 
   const avatars = [
     one,two , three , four , five , six , sev , eight , nine , ten , ele , twelve , thriteen , fourteen , fifteen , sixteen , seventeen , q , w , r, t , i , y , o , p, a , s, d , f , g , l
-];
+  ];
 
-function handleClickAvatar(){
-  setPop(!pop)
-}
-
-
-
+  function handleClickAvatar(){
+    setPop(!pop)
+  }
 
   useEffect(() => {
     fetchFriends();
@@ -125,29 +121,36 @@ function handleClickAvatar(){
         <div className="flex flex-col items-center relative">
           <div className="flex gap-40 justify-between">
             {/* Profile Card */}
-            <div className={`w-72 h-80 mt-5 rounded-lg border ${theme === 'light' ? 'bg-gradient-to-br from-cyan-100 to-pink-300' : 'bg-gradient-to-br from-cyan-100 to-pink-300 text-black'} p-5 shadow-lg mb-10 flex flex-col items-center`}>
-              <div className="text-center mt-12">
-                <h6 className="mt-4 text-center text-2xl">
-                  Hello {!!user && (
-                    <span className="text-orange-600 font-bold">{user.username}</span>
-                  )}
-                </h6>
-                <p>
-                  {!!user && (
-                    <span className="text-gray-500 text-md">{user.email}</span>
-                  )}
-                </p>
-                <button className="bg-gray-400 text-black px-3 py-2 mx-1 rounded-md text-lg mt-2 hover:bg-blue-700" onClick={handleClick}>Edit</button>
-                {edit && (
-                  <EditForm handleClose={handleClick} />
-                )}
+            <div className={`w-[430px] h-60 mt-10 rounded-lg border ${theme === 'light' ? 'bg-gradient-to-br from-cyan-100 via-pink-300  to-pink-200' : 'bg-gradient-to-br from-cyan-100 to-pink-300 text-black'} p-5 shadow-lg mb-10 flex flex-col items-center relative hover:scale-110 ease-in-out transition duration-500`}>
+              <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
+                <div className="grid grid-cols-3 items-center h-full">
+                  <div className='flex items-center justify-center ml-6'>
+                    <h6 className="text-3xl ">
+                      Hello {!!user && (
+                        <span className="text-orange-600 font-bold text-4xl">{user.username}</span>
+                      )}
+                    </h6>
+                  </div>
+                  <div className='mr-10 flex justify-center items-center'>
+                    <img src={bg} className='w-[430px] h-60  bg-cover rounded-lg mr-10' />
+                  </div>
+                  <div className='mr-10 flex flex-col items-center'>
+                    {!!user && (
+                      <p className="text-gray-500 text-md">{user.email}</p>
+                    )}
+                    <button className="bg-gradient-to-r from-blue-300 to-white  text-black px-3 py-2 mx-1 rounded-md text-lg mt-2 hover:bg-gradient-to-r hover:from-white hover:to-blue-300" onClick={handleClick}>Edit</button>
+                    {edit && (
+                      <EditForm handleClose={handleClick} />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex flex-col mb-4 items-center justify-center gap-1">
+            <div className="flex flex-col mb-8 items-center justify-center gap-1">
               <FaCrown size={50} className='text-yellow-400 mr-8 -rotate-12' />
-              <button className="w-56 h-56 bg-gray-300 rounded-full flex items-center justify-center transition duration-500 hover:scale-110 ease-in-out">
-                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar'  className='rounded-full img' /> : <LiaUserPlusSolid size={120} className='' onClick={handleClickAvatar} />}
-                {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} handleAvatar={setPic}  />}
+              <button className="w-56 h-56 bg-gray-300 rounded-full flex items-center justify-center  ">
+                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar' className='rounded-full img hover:scale-110 ease-in-out transition duration-500' /> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
+                {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} handleAvatar={setPic} />}
               </button>
             </div>
           </div>
