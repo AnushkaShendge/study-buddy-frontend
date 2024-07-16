@@ -46,8 +46,9 @@ const Profile = () => {
   const [edit, setEdit] = useState(false);
   const { theme } = useContext(ThemeContext);
   const [pop , setPop] = useState(false)
+  const [pic , setPic] = useState(null);
   
-  const avatar = localStorage.getItem('Avatar')
+
 
 
   const avatars = [
@@ -63,6 +64,7 @@ function handleClickAvatar(){
 
   useEffect(() => {
     fetchFriends();
+    
   }, []);
 
   async function fetchFriends() {
@@ -132,8 +134,8 @@ function handleClickAvatar(){
             <div className="flex flex-col mb-4 items-center justify-center gap-4">
               <FaCrown size={40} className='text-yellow-400 mt-2 mr-8 -rotate-12' />
               <div className="w-32 h-32 bg-gray-300 rounded-full flex items-center justify-center ">
-                {avatar ? <img src={avatar} alt='avatar' className='rounded-full'/> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
-                {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} />}
+                {pic ? <img src={pic} alt='avatar' className='rounded-full'/> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
+                {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} handleAvatar={setPic}  />}
               </div>
             </div>
           </div>

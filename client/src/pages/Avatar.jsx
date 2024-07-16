@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-function Avatar({ avatars, handleClose }) {
+function Avatar({ avatars, handleClose , handleAvatar }) {
     const [selectedAvatar, setSelectedAvatar] = useState(null);
 
     const handleSubmit = async (event) => {
@@ -33,7 +33,7 @@ function Avatar({ avatars, handleClose }) {
 
                 // Handle the response
                 if (res.data && res.data.profile_image) {
-                    localStorage.setItem('Avatar', selectedAvatar);
+                    handleAvatar(selectedAvatar)
                     handleClose();
                 } else {
                     console.error('Failed to save avatar.');
