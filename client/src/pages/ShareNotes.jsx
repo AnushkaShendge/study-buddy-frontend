@@ -39,7 +39,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const userId = selectedUsers.map((user) => (user.id));
-    const res = await axios.post(`http://localhost:8000/${note.id}/share`, { userId }, {
+    const res = await axios.post(`http://localhost:8000/${note.id}/share/`, { userId }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -76,8 +76,8 @@ function ShareNotes({ note, handleClose, handleEdit }) {
                     <div key={user.id} className="p-2 hover:bg-gray-200 cursor-pointer flex items-center">
                       <input
                         type="checkbox"
-                        checked={selectedUsers.includes(user.username)}
-                        onChange={() => handleUserSelect(user.username)}
+                        checked={selectedUsers.includes(user)}
+                        onChange={() => handleUserSelect(user)}
                         className="mr-2"
                       />
                       {user.username}

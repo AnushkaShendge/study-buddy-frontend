@@ -22,7 +22,7 @@ function EditNotes({ handleClose, handleEdit, note }) {
         data.append('document', pdf[i]);
       }
       
-      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update`, data, {
+      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
