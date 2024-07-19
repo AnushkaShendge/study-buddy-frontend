@@ -132,20 +132,10 @@ function Notes() {
 }
 
 const NoteItem = ({ note, Delete, Share, Edit, onClick }) => (
-  <div className="p-6 rounded-lg bg-gradient-to-tr from-blue-500 via-cyan-200 to-sky-400 shadow-lg flex flex-col justify-between transition-transform duration-300 hover:scale-105 cursor-pointer" onClick={onClick}>
-    <h3 className="text-lg font-semibold text-center text-white mb-2">{note.title}</h3>
+  <div className="p-6 rounded-lg bg-gradient-to-tr from-blue-500 via-cyan-200 to-sky-400 shadow-lg flex flex-col justify-between transition-transform duration-300 hover:scale-105 cursor-pointer">
+    <h3 onClick={onClick} className="text-lg font-semibold text-center text-white mb-2">{note.title}</h3>
     {note.image && note.image.length > 0 && <img src={note.image[0]} alt='img' className='w-full p-3 mb-2' />}
-    <p className="text-sm font-light text-center text-white mb-4">{note.content}</p>
-    {note.share_with && (
-      <div className="bg-white bg-opacity-20 p-2 rounded-lg mb-4">
-        <p className="text-xs font-semibold text-white mb-1">Note Shared with:</p>
-        <ul className="text-xs font-light text-white list-disc list-inside">
-          {note.share_with.split(',').map((person, index) => (
-            <li key={index}>{person}</li>
-          ))}
-        </ul>
-      </div>
-    )}
+    <p onClick={onClick} className="text-sm font-light text-center text-white mb-4">{note.content}</p>
     <div className="flex justify-between items-center mt-4 pt-4 border-t border-white border-opacity-40">
       <button
         onClick={Share}
