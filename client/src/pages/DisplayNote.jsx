@@ -28,11 +28,11 @@ function DisplayNote({ note, handleClose }) {
               )}
               <p className="mt-2 text-sm leading-4 text-gray-700">{note.content}</p>
             </div>
-            {note.share_with && (
+            {note.shared_with && (
               <div className="bg-white bg-opacity-20 p-2 rounded-lg mb-4">
                 <p className="text-xs font-semibold text-white mb-1">Note Shared with:</p>
                 <ul className="text-xs font-light text-white list-disc list-inside">
-                  {note.share_with.split(',').map((person, index) => (
+                  {note.shared_with.split(',').map((person, index) => (
                     <li key={index}>{person}</li>
                   ))}
                 </ul>

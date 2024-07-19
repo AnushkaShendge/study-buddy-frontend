@@ -11,9 +11,9 @@ function ShareNotes({ note, handleClose, handleEdit }) {
 
   useEffect(() => {
     if (note.share_with) {
-      setSelectedUsers(note.share_with.split(','));
+      setSelectedUsers(note.shared_with.split(','));
     }
-  }, [note.share_with]);
+  }, [note.shared_with]);
 
   async function handleUser() {
     const res = await axios.get('http://localhost:8000/connect/friends/', {
