@@ -14,7 +14,7 @@ function DisplayNote({ note, handleClose }) {
           <div className="space-y-4">
             <div>
               <h2 className="text-center font-semibold text-orange-400">{note.title}</h2>
-              {note.image && note.image.length > 0 && (
+              {note.images && note.images.length > 0 && (
                 <div className="flex flex-wrap justify-center mt-2 space-x-2">
                   {note.image.map((img, index) => (
                     <img
@@ -38,7 +38,7 @@ function DisplayNote({ note, handleClose }) {
                 </ul>
               </div>
             )}
-            {note.document && note.document.length > 0 && (
+            {note.documents && note.documents.length > 0 && (
               <div>
                 <p className="text-sm font-semibold text-gray-700">Documents:</p>
                 <ul className="mt-2 space-y-2">
