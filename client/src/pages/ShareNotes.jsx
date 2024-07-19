@@ -28,8 +28,8 @@ function ShareNotes({ note, handleClose, handleEdit }) {
 
   const handleUserSelect = (user) => {
     setSelectedUsers((prevSelected) => {
-      if (prevSelected.includes(user)) {
-        return prevSelected.filter((u) => u !== user);
+      if (prevSelected.some(selectedUser => selectedUser.username === user.username)) {
+        return prevSelected.filter((u) => u.username !== user.username);
       } else {
         return [...prevSelected, user];
       }
@@ -76,7 +76,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
                     <div key={user.id} className="p-2 hover:bg-gray-200 cursor-pointer flex items-center">
                       <input
                         type="checkbox"
-                        checked={selectedUsers.includes(user)}
+                        checked={selectedUsers.some(selectedUser => selectedUser.id === user.id)}
                         onChange={() => handleUserSelect(user)}
                         className="mr-2"
                       />

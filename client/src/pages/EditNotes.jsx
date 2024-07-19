@@ -16,10 +16,10 @@ function EditNotes({ handleClose, handleEdit, note }) {
       data.append('title', title);
       data.append('content', content);
       for (let i = 0; i < img.length; i++) {
-        data.append('image', img[i]);
+        data.append('images', img[i]);
       }
       for (let i = 0; i < pdf.length; i++) {
-        data.append('document', pdf[i]);
+        data.append('documents', pdf[i]);
       }
       
       const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, data, {
@@ -30,6 +30,7 @@ function EditNotes({ handleClose, handleEdit, note }) {
       });
       if (res.data) {
         handleEdit();
+        handleClose();
       }
     } catch (error) {
       console.error('Error editing note:', error);
