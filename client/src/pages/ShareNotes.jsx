@@ -11,8 +11,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
 
   useEffect(() => {
     if (note.shared_with) {
-        const userName = note.shared_with.map(user => user.username )
-      setSelectedUsers(userName.split(','));
+      setSelectedUsers(note.shared_with.split(','));
     }
   }, [note.shared_with]);
 
