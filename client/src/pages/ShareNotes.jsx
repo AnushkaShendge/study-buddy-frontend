@@ -39,7 +39,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const userId = selectedUsers.map((user) => (user.id));
-    const res = await axios.post(`http://localhost:8000/notes/${note.id}/share/`, { shared_with:userId }, {
+    const res = await axios.post(`http://localhost:8000/notes/${note.id}/share/`, { users:userId }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
