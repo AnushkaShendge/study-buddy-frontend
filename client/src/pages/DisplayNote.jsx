@@ -32,7 +32,7 @@ function DisplayNote({ note, handleClose }) {
               <div className="bg-white bg-opacity-20 p-2 rounded-lg mb-4">
                 <p className="text-xs font-semibold text-white mb-1">Note Shared with:</p>
                 <ul className="text-xs font-light text-white list-disc list-inside">
-                  {note.shared_with.split(',').map((person, index) => (
+                  {note.shared_with.map((person, index) => (
                     <li key={index}>{person}</li>
                   ))}
                 </ul>

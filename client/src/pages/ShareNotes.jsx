@@ -11,7 +11,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
 
   useEffect(() => {
     if (note.shared_with) {
-      setSelectedUsers(note.shared_with.split(','));
+      setSelectedUsers(note.shared_with);
     }
   }, [note.shared_with]);
 
