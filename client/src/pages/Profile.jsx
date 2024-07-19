@@ -40,6 +40,7 @@ import g from '../assets/40.jpg';
 import l from '../assets/5.jpg';
 import bg from '../assets/bg.jpg'
 import Avatar from './Avatar';
+import './../index.css'
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -83,7 +84,13 @@ const Profile = () => {
     });
     if (res.data) {
       setFriends(res.data.user.friends);
-      const friendRequests = res.data.user.received_friend_requests.map(req => req.sender);
+      const friendRequests = res.data.user.received_friend_requests
+      .filter(req => req.status === 'pending') 
+      .map(req => ({
+        id: req.id,
+        sender: req.sender
+      }));
+
       setFriReq(friendRequests);
     }
   }
@@ -123,7 +130,7 @@ const Profile = () => {
             {/* Profile Card */}
             <div className={`w-[430px] h-60 mt-10 rounded-lg border ${theme === 'light' ? 'bg-gradient-to-br from-cyan-100 via-pink-300  to-pink-200' : 'bg-gradient-to-br from-cyan-100 to-pink-300 text-black'} p-5 shadow-lg mb-10 flex flex-col items-center relative hover:scale-110 ease-in-out transition duration-500`}>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
-                <div className="grid grid-cols-3 items-center h-full">
+                <div className="grid grid-cols-3 items-center h-full border-glows">
                   <div className='flex items-center justify-center ml-6'>
                     <h6 className="text-3xl ">
                       Hello {!!user && (
@@ -149,7 +156,7 @@ const Profile = () => {
             <div className="flex flex-col mb-8 items-center justify-center gap-1">
               <FaCrown size={50} className='text-yellow-400 mr-8 -rotate-12' />
               <button className="w-56 h-56 bg-gray-300 rounded-full flex items-center justify-center  ">
-                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar' className='rounded-full img hover:scale-110 ease-in-out transition duration-500' /> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
+                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar' onClick={handleClickAvatar} className='rounded-full img hover:scale-110 ease-in-out transition duration-500 border-glow' /> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
                 {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} handleAvatar={setPic} />}
               </button>
             </div>
@@ -164,7 +171,7 @@ const Profile = () => {
               <div className={`${friReq.length > 0 ? 'grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4' : 'flex items-center justify-center'}`}>
                 {friReq.length > 0 ? (
                   friReq.map(fri => (
-                    <FriendCard key={fri.id} user={fri} isRequest={true} ReqAccept={() => handleAccept(fri.id)} ReqDecline={() => handleDecline(fri.id)} />
+                    <FriendCard1 key={fri.id} user={fri} isRequest={true} ReqAccept={() => handleAccept(fri.id)} ReqDecline={() => handleDecline(fri.id)} />
                   ))
                 ) : (
                   <div className='p-3 rounded-xl bg-orange-400 inline-block'><p className='flex gap-2 text-lg font-semibold'><PiEmptyFill size={30} className='' />No friend requests</p></div>
@@ -204,6 +211,22 @@ const FriendCard = ({ user, isRequest, ReqAccept, ReqDecline }) => (
     <div className="text-center">
       <p className="text-xl font-semibold text-orange-600">{user.username}</p>
       <p className="text-sm text-gray-500">{user.email}</p>
+    </div>
+    {isRequest && (
+      <div className="mt-4 flex gap-2">
+        <button onClick={ReqAccept} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Accept</button>
+        <button onClick={ReqDecline} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Decline</button>
+      </div>
+    )}
+  </div>
+);
+
+const FriendCard1 = ({ user, isRequest, ReqAccept, ReqDecline }) => (
+  <div className="w-60 p-6 rounded-xl border shadow-md hover:shadow-lg transition duration-500 hover:scale-105 ease-in-out flex flex-col items-center">
+    <FaUserCircle size={70} className='text-gray-400 mb-4' />
+    <div className="text-center">
+      <p className="text-xl font-semibold text-orange-600">{user.sender.username}</p>
+      <p className="text-sm text-gray-500">{user.sender.email}</p>
     </div>
     {isRequest && (
       <div className="mt-4 flex gap-2">

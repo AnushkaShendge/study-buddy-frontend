@@ -10,6 +10,8 @@ import Practice from './pages/Practice';
 import { ImSpinner3 } from "react-icons/im";
 import Profile from './pages/Profile';
 import Connect from './pages/Connect';
+import Chat from './pages/Chat';
+import Notes from './pages/Notes';
 
 function App() {
   const { user, ready } = useContext(UserContext);
@@ -27,6 +29,8 @@ function App() {
         <Route path="/practice-dost" element={user ? <Practice /> : <Navigate to='/' replace />} />
         <Route path="/profile" element={user ? <Profile /> : <Navigate to='/' replace />} />
         <Route path="/connect" element={user ? <Connect /> : <Navigate to='/' replace />} />
+        <Route path="/chat" element={user ? <Chat /> : <Navigate to='/' replace />} />
+        <Route path="/notes" element={user ? <Notes /> : <Navigate to='/' replace />} />
       </Routes>
   );
 }

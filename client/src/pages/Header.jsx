@@ -1,20 +1,37 @@
 import { IoIosSearch } from "react-icons/io";
-import { FaUserCircle, FaCrown, FaBlogger, FaMoon } from "react-icons/fa";
+import { FaUserCircle, FaBlogger, FaMoon } from "react-icons/fa";
+import { FaFacebookMessenger } from "react-icons/fa6";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiBookmark } from "react-icons/ci";
 import { IoToggleSharp } from "react-icons/io5";
 import { CgToggleOn } from "react-icons/cg";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../ThemeContext";
 import { FaUserAlt } from "react-icons/fa";
 import { UserContext } from "../UserContext";
+import axios from "axios";
 
 function Header({ sidebarOpen }) {
     const { user } = useContext(UserContext);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { theme, toggleTheme } = useContext(ThemeContext);
     const [redirect, setRedirect] = useState(false);
+    const [pic , setPic] = useState(null);
+  
+    async function handleAvatar() {
+        const res = await axios.get('http://localhost:8000/profile/image2/',{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
+        if(res.data){
+        setPic(res.data.profile_image);
+        }
+    }
+    useEffect(() => {
+        handleAvatar();
+    } , [])
 
     const location = useLocation();
     const pathTitleMap = {
@@ -61,7 +78,7 @@ function Header({ sidebarOpen }) {
                     />
                 </div>
                 <div className="ml-4 flex items-center space-x-1 cursor-pointer relative">
-                    <FaUserCircle size={40} className="text-gray-300" />
+                    {pic ? <img src={`http://localhost:8000${pic}`} className="w-14 h-14 rounded-full" /> : <FaUserCircle size={40} className="text-gray-300" /> }
                     <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                         <RiArrowDropDownLine size={30} />
                     </button>
@@ -78,8 +95,8 @@ function Header({ sidebarOpen }) {
                                 </div>
                             </li>
                             <li className="flex gap-2 items-center cursor-pointer">
-                                <FaCrown />
-                                <Link to="/purchase">Purchase</Link>
+                                <FaFacebookMessenger />
+                                <Link to="/chat">Chats</Link>
                             </li>
                             <li className="flex gap-2 items-center cursor-pointer">
                                 <CiBookmark />

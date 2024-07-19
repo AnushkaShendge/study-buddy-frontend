@@ -48,9 +48,9 @@ const FlipCard = ({ user }) => {
           onAnimationComplete={() => setIsAnimating(false)}
         >
           <div className="flip-card-front w-full h-full absolute flex flex-col items-center justify-center bg-gradient-to-b from-purple-300 to-indigo-400 rounded-md shadow-lg" style={{ backfaceVisibility: 'hidden' }}>
-            <div className="w-28 h-28 rounded-full overflow-hidden">
-              {user.image ? (
-                <img src={user.image} alt={user.username} className="w-full h-full object-cover" />
+            <div className="w-28 h-28 mt-3 rounded-full overflow-hidden">
+              {user.profile_image ? (
+                <img src={`http://localhost:8000${user.profile_image}`} alt={user.username} className="w-full h-full object-cover" />
               ) : (
                 <FaUserCircle size={112} className="text-black" />
               )}

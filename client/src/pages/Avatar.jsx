@@ -11,7 +11,6 @@ function Avatar({ avatars, handleClose , handleAvatar }) {
             if (selectedAvatar) {
                 let file;
 
-                // Check if selectedAvatar is a string (URL), fetch and convert to File object
                 if (typeof selectedAvatar === 'string') {
                     const response = await fetch(selectedAvatar, { cache: 'no-cache' });
                     const blob = await response.blob();
@@ -20,20 +19,19 @@ function Avatar({ avatars, handleClose , handleAvatar }) {
                     file = selectedAvatar;
                 }
 
-                // Create FormData and append the file
                 const formData = new FormData();
                 formData.append('profile_image', file, file.name);
 
-                // Make the HTTP request to your backend
+    
                 const res = await axios.post('http://localhost:8000/profile/image/', formData, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     },
                 });
 
-                // Handle the response
                 if (res.data && res.data.profile_image) {
                     handleAvatar(res.data.profile_image)
+                    localStorage.setItem("Avatar" , res.data.profile_image )
                     handleClose();
                 } else {
                     console.error('Failed to save avatar.');
