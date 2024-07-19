@@ -13,8 +13,6 @@ function EditNotes({ handleClose, handleEdit, note }) {
     e.preventDefault();
     try {
       const data = new FormData();
-      data.append('title', title);
-      data.append('content', content);
       for (let i = 0; i < img.length; i++) {
         data.append('images', img[i]);
       }
@@ -22,7 +20,7 @@ function EditNotes({ handleClose, handleEdit, note }) {
         data.append('documents', pdf[i]);
       }
       
-      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { data } , {
+      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title , content , data } , {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
