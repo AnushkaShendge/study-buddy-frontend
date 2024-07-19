@@ -10,8 +10,8 @@ function ShareNotes({ note, handleClose, handleEdit }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    if (note.share_with) {
-      setSelectedUsers(note.shared_with.split(','));
+    if (note.shared_with) {
+      setSelectedUsers(note.shared_with.username.split(','));
     }
   }, [note.shared_with]);
 
