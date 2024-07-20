@@ -1,4 +1,8 @@
 function DisplayNote({ note, handleClose }) {
+  const handleDocumentClick = (docUrl) => {
+    window.open(docUrl, '_blank');
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-gradient-to-r from-blue-400 to-cyan-300 text-black p-6 rounded-xl shadow-lg w-full max-w-md">
@@ -42,14 +46,18 @@ function DisplayNote({ note, handleClose }) {
             <div>
               <p className="text-sm font-semibold text-gray-700">Documents:</p>
               <ul className="mt-2 space-y-2">
-                {note.documents.map((doc, index) => (
-                  <li key={index} className="text-sm text-blue-600 underline">
-                    <a href={doc} target="_blank" rel="noopener noreferrer">
-                      Document {index + 1}
-                    </a>
-                    <p className="text-xs">URL: {doc}</p> {/* Added for debugging */}
-                  </li>
-                ))}
+                {note.documents.map((doc, index) => {
+                  const docUrl = `http://localhost:5173${doc}`;
+                  console.log(docUrl); // Added for debugging
+                  return (
+                    <li key={index} className="text-sm text-blue-600 underline">
+                      <a href={docUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleDocumentClick(docUrl)}>
+                        Document {index + 1}
+                      </a>
+                      <p className="text-xs">URL: {docUrl}</p> {/* Added for debugging */}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
