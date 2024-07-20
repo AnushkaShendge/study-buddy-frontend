@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useState } from 'react';
 
 function DisplayNote({ note, handleClose }) {
   // Function to fetch and open the PDF
