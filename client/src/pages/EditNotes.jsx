@@ -11,8 +11,16 @@ function EditNotes({ handleClose, handleEdit, note }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {      
-      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title , content , documents:pdf , images:img } , {
+    try {
+      const data = new FormData();
+      for (let i = 0; i < img.length; i++) {
+        data.append('images', img[i]);
+      }
+      for (let i = 0; i < pdf.length; i++) {
+        data.append('documents', pdf[i]);
+      }
+      
+      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title , content , documents:pdf , img } , {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -1,6 +1,32 @@
+import axios from 'axios';
+import { useState } from 'react';
+
 function DisplayNote({ note, handleClose }) {
-  const handleDocumentClick = (docUrl) => {
-    window.open(docUrl, '_blank');
+  // Function to fetch and open the PDF
+  const fetchAndOpenPDF = async (docUrl) => {
+    try {
+      const response = await axios({
+        url: docUrl,
+        method: 'GET',
+        responseType: 'blob', // Force to receive data in a Blob Format
+      });
+
+      // Ensure the response is successful
+      if (response.status === 200) {
+        // Create a Blob from the PDF Stream
+        const file = new Blob([response.data], { type: 'application/pdf' });
+
+        // Build a URL from the file
+        const fileURL = URL.createObjectURL(file);
+
+        // Open the URL in a new window
+        window.open(fileURL, '_blank');
+      } else {
+        console.error('Failed to fetch the PDF. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching PDF:', error);
+    }
   };
 
   return (
@@ -46,18 +72,16 @@ function DisplayNote({ note, handleClose }) {
             <div>
               <p className="text-sm font-semibold text-gray-700">Documents:</p>
               <ul className="mt-2 space-y-2">
-                {note.documents.map((doc, index) => {
-                  const docUrl = `http://localhost:5173${doc}`;
-                  console.log(docUrl); // Added for debugging
-                  return (
-                    <li key={index} className="text-sm text-blue-600 underline">
-                      <a href={docUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleDocumentClick(docUrl)}>
-                        Document {index + 1}
-                      </a>
-                      <p className="text-xs">URL: {docUrl}</p> {/* Added for debugging */}
-                    </li>
-                  );
-                })}
+                {note.documents.map((doc, index) => (
+                  <li key={index} className="text-sm text-blue-600 underline">
+                    <button
+                      onClick={() => fetchAndOpenPDF(doc)}
+                      className="text-blue-600 underline"
+                    >
+                      Document {index + 1}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
