@@ -6,6 +6,7 @@ import { ThemeContext } from '../ThemeContext';
 import { FaMoon } from "react-icons/fa";
 import { IoIosSunny } from "react-icons/io";
 import background1 from '../assets/back1.jpg'
+import { FaUserCircle } from "react-icons/fa";
 
 function Chat(){
   const {theme , toggleTheme} = useContext(ThemeContext)
@@ -83,11 +84,11 @@ function Chat(){
               }`}
               onClick={() => setSelectedUser(user)}
             >
-              <img
+              {user.profile_image ? <img
                 src={`http://localhost:8000${user.profile_image}`}
                 alt={user.username}
                 className="w-10 h-10 rounded-full mr-4"
-              />
+              />: <FaUserCircle className='w-10 h-10 mr-r text-gray-500' />}
               <div>
                 <div className="font-bold text-xl">{user.username}</div>
                 <div className="text-sm text-gray-600">{user.lastMessage}</div>
