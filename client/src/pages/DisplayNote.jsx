@@ -32,7 +32,7 @@ function DisplayNote({ note, handleClose }) {
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-gradient-to-r from-blue-400 to-cyan-300 text-black p-6 rounded-xl shadow-lg w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Note</h2>
+          <h2 className="text-xl font-semibold text-center">Note</h2>
           <button
             onClick={handleClose}
             className="text-gray-700 hover:text-gray-900 transition duration-200"
