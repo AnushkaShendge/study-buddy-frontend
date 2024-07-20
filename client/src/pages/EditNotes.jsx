@@ -2,25 +2,19 @@ import React, { useState } from 'react';
 import { FaImage } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
 import axios from 'axios';
+import { ImSpinner3 } from "react-icons/im";
 
 function EditNotes({ handleClose, handleEdit, note }) {
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
   const [img, setImg] = useState([]);
   const [pdf, setPdf] = useState([]);
+  const [process, setProcess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = new FormData();
-      for (let i = 0; i < img.length; i++) {
-        data.append('images', img[i]);
-      }
-      for (let i = 0; i < pdf.length; i++) {
-        data.append('documents', pdf[i]);
-      }
-      
-      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title , content , documents:pdf , images:img } , {
+      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title, content, documents: pdf, images: img }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -39,7 +33,10 @@ function EditNotes({ handleClose, handleEdit, note }) {
   };
 
   const handlePdf = (e) => {
+    setProcess(true);
     setPdf([...e.target.files]);
+    setProcess(false);
+    alert('PDF Uploaded');
   };
 
   return (
@@ -66,6 +63,12 @@ function EditNotes({ handleClose, handleEdit, note }) {
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
           </div>
+          {process && (
+            <div className="bg-orange-400 py-3 px-2 flex items-center justify-center">
+              <ImSpinner3 className="animate-spin mr-2" />
+              Processing
+            </div>
+          )}
           <div className="flex justify-between space-x-4">
             <label className="flex items-center px-4 py-2 bg-blue-700 text-black rounded hover:bg-blue-800 cursor-pointer">
               <FaImage size={20} />
@@ -106,3 +109,4 @@ function EditNotes({ handleClose, handleEdit, note }) {
 }
 
 export default EditNotes;
+1 1       ```
