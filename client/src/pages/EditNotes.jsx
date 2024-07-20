@@ -20,7 +20,7 @@ function EditNotes({ handleClose, handleEdit, note }) {
         data.append('documents', pdf[i]);
       }
       
-      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title , content , documents:pdf , img } , {
+      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title , content , data } , {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
