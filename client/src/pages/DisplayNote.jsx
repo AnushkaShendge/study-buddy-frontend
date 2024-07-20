@@ -1,27 +1,6 @@
-import React from 'react';
-import axios from 'axios';
-
 function DisplayNote({ note, handleClose }) {
-  // Function to fetch and open PDF
-  const fetchAndOpenPDF = async (docUrl) => {
-    try {
-      const response = await axios({
-        url: docUrl,
-        method: 'GET',
-        responseType: 'blob', // Force to receive data in a Blob Format
-      });
-
-      // Create a Blob from the PDF Stream
-      const file = new Blob([response.data], { type: 'application/pdf' });
-
-      // Build a URL from the file
-      const fileURL = URL.createObjectURL(file);
-
-      // Open the URL in a new window
-      window.open(fileURL);
-    } catch (error) {
-      console.error('Error fetching PDF:', error);
-    }
+  const handleDocumentClick = (docUrl) => {
+    window.open(docUrl, '_blank');
   };
 
   return (
@@ -67,16 +46,18 @@ function DisplayNote({ note, handleClose }) {
             <div>
               <p className="text-sm font-semibold text-gray-700">Documents:</p>
               <ul className="mt-2 space-y-2">
-                {note.documents.map((doc, index) => (
-                  <li key={index} className="text-sm text-blue-600 underline cursor-pointer">
-                    <a
-                      href="#"
-                      onClick={() => fetchAndOpenPDF(doc)}
-                    >
-                      Document {index + 1}
-                    </a>
-                  </li>
-                ))}
+                {note.documents.map((doc, index) => {
+                  const docUrl = `http://localhost:5173${doc}`;
+                  console.log(docUrl); // Added for debugging
+                  return (
+                    <li key={index} className="text-sm text-blue-600 underline">
+                      <a href={docUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleDocumentClick(docUrl)}>
+                        Document {index + 1}
+                      </a>
+                      <p className="text-xs">URL: {docUrl}</p> {/* Added for debugging */}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
