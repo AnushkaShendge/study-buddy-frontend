@@ -42,7 +42,7 @@ function DisplayNote({ note, handleClose }) {
               <div>
                 <p className="text-sm font-semibold text-gray-700">Documents:</p>
                 <ul className="mt-2 space-y-2">
-                  {note.document.map((doc, index) => (
+                  {note.documents.map((doc, index) => (
                     <li key={index} className="text-sm text-blue-600 underline">
                       <a href={doc} target="_blank" rel="noopener noreferrer">
                         Document {index + 1}
