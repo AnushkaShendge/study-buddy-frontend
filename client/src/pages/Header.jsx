@@ -36,9 +36,9 @@ function Header({ sidebarOpen }) {
     const location = useLocation();
     const pathTitleMap = {
         '/dashboard': 'Dashboard',
-        '/dashboard/pdf': 'Chat PDF',
         '/practice-dost': 'Practice-DOST',
-        '/connect': 'Connect with DOST'
+        '/connect': 'Connect with DOST',
+        '/notes' : 'Study Material DOST'
     };
     const currentPath = location.pathname;
     const currentTitle = pathTitleMap[currentPath] || 'Dashboard';
