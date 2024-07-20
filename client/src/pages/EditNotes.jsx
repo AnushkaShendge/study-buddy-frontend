@@ -109,4 +109,3 @@ function EditNotes({ handleClose, handleEdit, note }) {
 }
 
 export default EditNotes;
-1 1       ```
