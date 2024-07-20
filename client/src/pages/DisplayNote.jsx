@@ -1,4 +1,29 @@
+import React from 'react';
+import axios from 'axios';
+
 function DisplayNote({ note, handleClose }) {
+  // Function to fetch and open PDF
+  const fetchAndOpenPDF = async (docUrl) => {
+    try {
+      const response = await axios({
+        url: docUrl,
+        method: 'GET',
+        responseType: 'blob', // Force to receive data in a Blob Format
+      });
+
+      // Create a Blob from the PDF Stream
+      const file = new Blob([response.data], { type: 'application/pdf' });
+
+      // Build a URL from the file
+      const fileURL = URL.createObjectURL(file);
+
+      // Open the URL in a new window
+      window.open(fileURL);
+    } catch (error) {
+      console.error('Error fetching PDF:', error);
+    }
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-gradient-to-r from-blue-400 to-cyan-300 text-black p-6 rounded-xl shadow-lg w-full max-w-md">
@@ -42,22 +67,16 @@ function DisplayNote({ note, handleClose }) {
             <div>
               <p className="text-sm font-semibold text-gray-700">Documents:</p>
               <ul className="mt-2 space-y-2">
-                {note.documents.map((doc, index) => {
-                  const docUrl = `http://localhost:5173${doc}`;
-                  return (
-                    <li key={index} className="text-sm text-blue-600 underline">
-                      <p className="text-xs">Document {index + 1}</p>
-                      <iframe 
-                        src={docUrl} 
-                        width="100%" 
-                        height="600px" 
-                        className="border mt-2"
-                        title={`Document ${index + 1}`}
-                      ></iframe>
-                      <p className="text-xs">URL: {docUrl}</p> {/* Added for debugging */}
-                    </li>
-                  );
-                })}
+                {note.documents.map((doc, index) => (
+                  <li key={index} className="text-sm text-blue-600 underline cursor-pointer">
+                    <a
+                      href="#"
+                      onClick={() => fetchAndOpenPDF(doc)}
+                    >
+                      Document {index + 1}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
