@@ -49,7 +49,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                     </button>
                 </div>
                 <div className={`flex flex-col items-center ${expanded ? "opacity-100" : "opacity-0 overflow-hidden"} transition-opacity duration-300`}>
-                    <img src={robot} alt="Robot" className="mb-5 h-56" />
+                    <img src={robot} alt="Robot" className="mb-5 h-72" />
                     <div className="text-center">
                         <h1 className={`text-2xl flex items-center justify-center gap-4 font-bold mb-4 leading-5 ${expanded ? '' : 'hidden'}`}>
                             <FaFileDownload size={35} className="text-yellow-400" />
@@ -61,9 +61,9 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                                 type="file" 
                                 multiple 
                                 onChange={handleFileChange} 
-                                className={`m-2 ml-16 w-full h-full  ${expanded ? '' : 'hidden'} ` } 
+                                className={`m-4 ml-16 w-full h-full  ${expanded ? '' : 'hidden'} ` } 
                             />
-                            <div className="my-1 flex items-center justify-center">
+                            <div className="my-3 flex items-center justify-center">
                                 {compUp ? (
                                     <div className="border-2 text-sm rounded-lg border-green-500 p-1 bg-green-200">Processed</div>
                                 ) : (
@@ -71,7 +71,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
                                 )}
                             </div>
                         </div>
-                        <p className={`text-xs  m-3 ${expanded ? '' : 'hidden'}`}>Upload your PDF Files & Click on the Upload Button</p>
+                        <p className={`text-xs  m-4 ${expanded ? '' : 'hidden'}`}>Upload your PDF Files & Click on the Upload Button</p>
                         <div className="flex items-center justify-center mt-2">
                             <button 
                                 className={`bg-gradient-to-r from-orange-200 to-orange-300 mb-1 text-white gap-2 flex py-2 px-4 rounded-lg w-80 items-center justify-center hover:bg-gradient-to-r hover:from-orange-300 hover:to-orange-400 ${expanded ? '' : 'hidden'}`} 

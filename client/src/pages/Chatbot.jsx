@@ -55,7 +55,7 @@ function Chatbot() {
         </div>
         <div className="flex mb-10">
           <input type="text" value={input} onChange={(e) => setInput(e.target.value)} className="flex-1 border border-gray-300 rounded-lg p-2" placeholder="Type a message..." />
-          <button onClick={handleSubmit} className="bg-orange-400 text-white p-3 rounded-lg mx-4"><MdSend size={16}/></button>
+          <button onClick={handleSubmit} className="bg-orange-400 text-white p-3 rounded-lg ml-2"><MdSend size={16}/></button>
         </div>
       </div>
     </div>

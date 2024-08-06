@@ -30,9 +30,9 @@ function Dashboard() {
             <p className="text-white mb-4">JEE Mains and Advanced 2024</p>
             <a href="#" className="text-white underline text-xs">Know more</a>
             <div className='flex mt-6'>
-              <button className="bg-white text-orange-500 py-2 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out">
+              <Link to="/test" className="bg-white text-orange-500 py-2 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out">
                 Take test series
-              </button>
+              </Link>
             </div>
           </div>
           <div className="mt-4 md:mt-0 bottom-0">
