@@ -191,6 +191,13 @@ function TestGenerate() {
                             Next <FaLongArrowAltRight className='ml-2' />
                         </button>
                     </div>
+                    {score && <div className="flex items-center justify-center mt-2 m-2">
+                        <div
+                            className="bg-orange-700 text-white py-4 px-8 flex items-center rounded-xl max-w-sm shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:bg-orange-600"
+                        >
+                            Score : ${score} points
+                        </div>
+                    </div>}
                 </div>
             </div>
         </div>
