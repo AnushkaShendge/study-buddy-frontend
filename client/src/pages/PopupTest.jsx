@@ -78,7 +78,7 @@ function PopupTest({ handleClose, onAdded }) {
     }, [selectedSubdomains]);
 
     const handleDurationChange = (event) => {
-        setDuration(event.target.value);
+        setDuration(parseInt(event.target.value));
     };
 
     async function handleSubmit(e) {
@@ -205,8 +205,8 @@ function PopupTest({ handleClose, onAdded }) {
                             <label className="flex items-center">
                                 <input
                                     type="radio"
-                                    value="15"
-                                    checked={duration === "15"}
+                                    value={15}
+                                    checked={duration === 15}
                                     onChange={handleDurationChange}
                                     className="mr-2"
                                 />
@@ -215,8 +215,8 @@ function PopupTest({ handleClose, onAdded }) {
                             <label className="flex items-center">
                                 <input
                                     type="radio"
-                                    value="30"
-                                    checked={duration === "30"}
+                                    value={30}
+                                    checked={duration === 30}
                                     onChange={handleDurationChange}
                                     className="mr-2"
                                 />
@@ -225,8 +225,8 @@ function PopupTest({ handleClose, onAdded }) {
                             <label className="flex items-center">
                                 <input
                                     type="radio"
-                                    value="60"
-                                    checked={duration === "60"}
+                                    value={60}
+                                    checked={duration === 60}
                                     onChange={handleDurationChange}
                                     className="mr-2"
                                 />

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import SideBarComp from "./SideBarComp";
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaBell } from "react-icons/fa";
 import axios from "axios";
-import Results from "./Results";
 
 function TestGenerate() {
     const [questions, setQuestions] = useState([]);
@@ -10,11 +9,8 @@ function TestGenerate() {
     const [loading, setLoading] = useState(true);
     const [ans, setAns] = useState([]);
     const [score, setScore] = useState(null);
-    const [pop, setPop] = useState(false);
-
-    function handlePop() {
-        setPop(!pop);
-    }
+    const [viewRes, setViewResults] = useState([]);
+    const [result, setResult] = useState(false);
 
     useEffect(() => {
         const id = localStorage.getItem('test_id');
@@ -38,6 +34,21 @@ function TestGenerate() {
         }
     }
 
+    async function fetchDetails(id) {
+        try {
+            const res = await axios.get(`http://localhost:8000/testseries/get_test_detail/${id}/`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            if (res.data) {
+                setViewResults(res.data.answers);
+            }
+        } catch (error) {
+            console.error("Error fetching details", error);
+        }
+    }
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -56,6 +67,7 @@ function TestGenerate() {
             });
             if (res) {
                 setScore(res.data.score);
+                fetchDetails(localStorage.getItem('test_id'));
             }
         } catch (error) {
             console.error("Error submitting answers", error);
@@ -84,6 +96,18 @@ function TestGenerate() {
         setAns(newAns);
     };
 
+    const getOptionStyle = (optionLabel, questionId) => {
+        const currentResult = viewRes.find(result => result.question.id === questionId);
+        if (currentResult) {
+            if (currentResult.selected_option === optionLabel) {
+                return currentResult.correct ? "bg-green-200" : "bg-red-200";
+            } else if (currentResult.question.correct_option === optionLabel) {
+                return "bg-green-200";
+            }
+        }
+        return "";
+    };
+
     const progressWidth = ((currentQuestionIndex + 1) / len) * 100;
 
     return (
@@ -107,7 +131,7 @@ function TestGenerate() {
                     </div>
                     <div className="flex items-end justify-center w-full mb-12">
                         {score ? 
-                            <button onClick={handlePop} className="bg-white border-2 border-orange-100 text-orange-500 py-3 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out">
+                            <button onClick={() => setResult(true)} className="bg-white border-2 border-orange-100 text-orange-500 py-3 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out">
                                 View Results
                             </button>
                             :
@@ -115,7 +139,6 @@ function TestGenerate() {
                                 Submit
                             </button>
                         }
-                        {pop && <Results handleClose={handlePop} />}
                     </div>
                 </div>
                 <div className="w-3/4 h-full py-5">
@@ -135,7 +158,7 @@ function TestGenerate() {
                         {options.map((option, index) => {
                             const optionLabel = `option${index + 1}`;
                             return (
-                                <div key={index} className="mb-5 border p-2 rounded-xl">
+                                <div key={index} className={`mb-5 border p-2 rounded-xl ${getOptionStyle(optionLabel, currQuestion.id)}`}>
                                     <label className="flex items-center">
                                         <input 
                                             type="radio" 
@@ -144,6 +167,7 @@ function TestGenerate() {
                                             onChange={() => handleAnswer(optionLabel)} 
                                             checked={ans[currentQuestionIndex] === optionLabel}
                                             className="mr-2" 
+                                            disabled={result} 
                                         />
                                         {option}
                                     </label>
