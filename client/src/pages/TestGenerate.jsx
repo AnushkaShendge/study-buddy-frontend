@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SideBarComp from "./SideBarComp";
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaBell } from "react-icons/fa";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function TestGenerate() {
     const [questions, setQuestions] = useState([]);
@@ -129,7 +130,10 @@ function TestGenerate() {
                             ))}
                         </div>
                     </div>
-                    <div className="flex items-end justify-center w-full mb-12">
+                    <div className="flex items-end justify-center w-full gap-8 mb-12">
+                        <Link to='/test' onClick={handleSubmit} className="bg-white border-2 border-orange-100 text-orange-500 py-3 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out" >
+                            Back
+                        </Link>
                         {score ? 
                             <button onClick={() => setResult(true)} className="bg-white border-2 border-orange-100 text-orange-500 py-3 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out">
                                 View Results
@@ -191,11 +195,11 @@ function TestGenerate() {
                             Next <FaLongArrowAltRight className='ml-2' />
                         </button>
                     </div>
-                    {score && <div className="flex items-center justify-center mt-2 m-2">
+                    {score && <div className="flex items-center justify-center ">
                         <div
-                            className="bg-orange-700 text-white py-4 px-8 flex items-center rounded-xl max-w-sm shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:bg-orange-600"
+                            className="bg-orange-600 mb-8 text-white py-4 px-8 flex items-center rounded-xl max-w-sm shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:bg-orange-700"
                         >
-                            Score : ${score} points
+                            Score : {score} points
                         </div>
                     </div>}
                 </div>

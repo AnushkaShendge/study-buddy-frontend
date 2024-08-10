@@ -47,3 +47,43 @@
 .border-glows {
   box-shadow: 0 0 12px 8px rgba(137, 223, 239, 0.75);
 }
+
+
+
+.tooltip-cloud {
+  margin-top: 100px;
+  width: 500px;
+  height: 200px;
+  background: #ECEFF1;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  position: absolute;
+  z-index: 50;
+}
+
+.tooltip-cloud::after,
+.tooltip-cloud::before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: inherit;
+}
+
+.tooltip-cloud::after {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 50px;
+}
+
+.tooltip-cloud::before {
+  width: 180px;
+  height: 180px;
+  top: -70px;
+  left: 130px;
+}
+
+.tooltip-cloud h4, .tooltip-cloud p {
+  margin: 0;
+  padding: 4px;
+}
