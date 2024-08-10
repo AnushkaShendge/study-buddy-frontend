@@ -5,12 +5,14 @@ import { PiEmptyBold } from "react-icons/pi";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import PopupTest from "./PopupTest";
+import { useNavigate } from "react-router-dom";
 
 function Test() {
     const [test, setTest] = useState([]);
     const [pop, setPop] = useState(false);
     const [hoveredTest, setHoveredTest] = useState(null);
     const [tooltipData, setTooltipData] = useState({});
+    const navigate = useNavigate();
 
     function handleCreate() {
         setPop(!pop);
@@ -25,6 +27,10 @@ function Test() {
         if (res && res.data) {
             setTest(res.data);
         }
+    }
+    function handleClick(id){
+        localStorage.setItem('test_id', id);
+        navigate('/gentest');
     }
 
     useEffect(() => {
@@ -80,7 +86,7 @@ function Test() {
                                         key={t.id}
                                         test={t}
                                         index={index}
-                                        onClick={() => console.log(`Test ${t.id} clicked`)}
+                                        onClick={() => handleClick(t.id)}
                                         onMouseEnter={() => handleMouseEnter(t.id)}
                                         onMouseLeave={handleMouseLeave}
                                         showTooltip={hoveredTest === t.id}

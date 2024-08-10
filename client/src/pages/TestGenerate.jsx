@@ -16,6 +16,7 @@ function TestGenerate() {
     useEffect(() => {
         const id = localStorage.getItem('test_id');
         fetchQuestions(id);
+        fetchDetails(id)
     }, []);
 
     async function fetchQuestions(id) {
