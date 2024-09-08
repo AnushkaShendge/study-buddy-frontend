@@ -44,7 +44,7 @@ function Chat() {
     if ('online' in messageData) {
       showOnlinePeople(messageData.online);
     } else if ('text' in messageData) {
-      setMessages(prev => ([...prev, { ...messageData }]));
+      setMessages(prev => uniqBy([...prev, { ...messageData }], '_id'));
     }
   }
 
