@@ -33,11 +33,11 @@ function Register() {
         <div className="flex min-h-screen">
             <div className="w-1/2 flex flex-col p-8 ml-20">
                 <div className="flex mb-5">
-                    <h1 className="text-3xl font-extrabold">Acadza</h1>
+                    <h1 className="text-3xl font-extrabold">MyBuddy</h1>
                 </div>
-                <span className='text-[10px] h-[18px] rounded-full bg-gradient-to-r bg-orange-100 text-red-600 flex items-center justify-center mr-16 mt-6 mb-3 '><FaStar className='text-yellow-600 text-md m-2'/> Get FREE access to Acadza Dost for 4 hours on Signup</span>
+                <span className='text-[10px] h-[18px] rounded-full bg-gradient-to-r bg-orange-100 text-red-600 flex items-center justify-center mr-16 mt-6 mb-3 '><FaStar className='text-yellow-600 text-md m-2'/> Get FREE access to MyBuddy Dost for 4 hours on Signup</span>
                 <h1 className="text-4xl font-bold mb-2 tracking-wide" style={{fontFamily:""}}>Become a part<br />
-                    of <span className='text-blue-700 text-4xl font-bold'>Acadza</span></h1>
+                    of <span className='text-blue-700 text-4xl font-bold'>MyBuddy</span></h1>
                 <div className="text-gray-600 text-sm">
                     Already have an account?{' '}
                     <Link to="/" className="text-blue-500 hover:underline">

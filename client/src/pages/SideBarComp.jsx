@@ -7,6 +7,7 @@ import { IoMdHelp } from "react-icons/io";
 import { useState } from "react";
 import Header from "./Header";
 import { FaFilePdf } from "react-icons/fa6";
+import { FaFileVideo } from "react-icons/fa";
 
 function SideBarComp() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -22,7 +23,7 @@ function SideBarComp() {
                     <SidebarItem icon={<FaHome size={25} className="rounded-md p-1 text-orange-600 my-1" />} text="Home" to="/dashboard" active />
                     <SidebarItem icon={<LiaUserFriendsSolid size={20} className="rounded-md text-orange-600 my-1" />} text="DOST" to="/connect" alert />
                     <SidebarItem icon={<IoDocumentText size={20} className="rounded-md text-orange-600 my-1" />} text="Test Series" to="/test" />
-                    <SidebarItem icon={<BsGraphUpArrow size={20} className="rounded-md text-orange-600 my-1" />} text="Student Analysis" to="/dashboard/stats" />
+                    <SidebarItem icon={<FaFileVideo size={20} className="rounded-md text-orange-600 my-1" />} text="Resouces" to="/resource" />
                     <SidebarItem icon={<FaFilePdf size={20} className="rounded-md text-orange-600 my-1" />} text="Chat-pdf" to="/dashboard/pdf" />
                     <hr className="my-3" />
                     <SidebarItem icon={<IoSettings size={20} />} text="Settings" to="/dashboard/settings" />

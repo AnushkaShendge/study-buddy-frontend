@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SideBarComp from "./SideBarComp";
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaBell } from "react-icons/fa";
 import axios from "axios";
@@ -12,12 +12,30 @@ function TestGenerate() {
     const [score, setScore] = useState(null);
     const [viewRes, setViewResults] = useState([]);
     const [result, setResult] = useState(false);
+    const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(parseInt(localStorage.getItem('test_duration'), 10) * 60);
+
+    const timerRef = useRef(null);
 
     useEffect(() => {
         const id = localStorage.getItem('test_id');
         fetchQuestions(id);
-        fetchDetails(id)
+        fetchDetails(id);
+        startTimer();
+        return () => clearInterval(timerRef.current); // Cleanup on component unmount
     }, []);
+
+    const startTimer = () => {
+        timerRef.current = setInterval(() => {
+            setTotalTimeInSeconds((prevTime) => {
+                if (prevTime === 0) {
+                    clearInterval(timerRef.current);
+                    handleSubmit(); // Auto-submit when time is up
+                    return prevTime;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+    };
 
     async function fetchQuestions(id) {
         try {
@@ -45,6 +63,7 @@ function TestGenerate() {
             });
             if (res.data) {
                 setViewResults(res.data.answers);
+                setScore(res.data.score)
             }
         } catch (error) {
             console.error("Error fetching details", error);
@@ -56,6 +75,7 @@ function TestGenerate() {
     }
 
     async function handleSubmit() {
+        clearInterval(timerRef.current); // Stop the timer on submit
         const answers = questions.map((question, index) => ({
             question_id: question.id,
             selected_option: ans[index]
@@ -70,6 +90,7 @@ function TestGenerate() {
             if (res) {
                 setScore(res.data.score);
                 fetchDetails(localStorage.getItem('test_id'));
+                localStorage.removeItem('test_duration');
             }
         } catch (error) {
             console.error("Error submitting answers", error);
@@ -112,6 +133,9 @@ function TestGenerate() {
 
     const progressWidth = ((currentQuestionIndex + 1) / len) * 100;
 
+    const minutes = Math.floor(totalTimeInSeconds / 60);
+    const seconds = totalTimeInSeconds % 60;
+
     return (
         <div className="flex h-screen">
             <SideBarComp />
@@ -123,7 +147,7 @@ function TestGenerate() {
                             {questions.map((q, index) => (
                                 <div
                                     key={index}
-                                    className={`w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer ${index === currentQuestionIndex ? 'bg-gray-400' : ''}`}
+                                    className={`w-12 h-12 mb-3 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer ${index === currentQuestionIndex ? 'bg-gray-400' : ''}`}
                                     onClick={() => setCurrentQuestionIndex(index)}
                                 >
                                     <div>{index + 1}</div>
@@ -132,7 +156,7 @@ function TestGenerate() {
                         </div>
                     </div>
                     <div className="flex items-end justify-center w-full gap-8 mb-12">
-                        <Link to='/test' onClick={handleSubmit} className="bg-white border-2 border-orange-100 text-orange-500 py-3 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out" >
+                        <Link to='/test' onClick={handleSubmit} className="bg-white border-2 border-orange-100 text-orange-500 py-3 px-4 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 hover:text-white transition-all duration-300 ease-in-out">
                             Back
                         </Link>
                         {score ? 
@@ -153,8 +177,11 @@ function TestGenerate() {
                             <div className="h-full bg-orange-300" style={{ width: `${progressWidth}%` }}></div>
                         </div>
                     </div>
-                    <div className="flex items-center justify-start mx-4 mb-12">
+                    <div className="flex items-center justify-between mx-4 mb-12">
                         <p className="bg-teal-50 p-2 rounded-2xl ml-4 flex items-center"><FaBell size={12} className="mr-2" />Mark the most appropriate option.<br /> Only one option is correct.</p>
+                        <h1 className="p-3 font-bold m-2 mr-3 rounded-full text-2xl border-2 bg-teal-100">
+                            {minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
+                        </h1>
                     </div>
                     <div className="mb-5 border p-4 mx-4 shadow-sm rounded-xl">
                         <h2 className="text-lg">{currQuestion ? currQuestion.text : 'Loading...'}</h2>

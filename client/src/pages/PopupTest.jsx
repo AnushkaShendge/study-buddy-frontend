@@ -83,6 +83,7 @@ function PopupTest({ handleClose, onAdded }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        localStorage.setItem('test_duration' , duration);
         const chapId = selectedChapters.map(c => c.id);
 
         const res = await axios.post('http://localhost:8000/testseries/generate_test/', { chapter_ids: chapId, duration }, {

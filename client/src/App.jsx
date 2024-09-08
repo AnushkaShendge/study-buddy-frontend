@@ -14,6 +14,7 @@ import Chat from './pages/Chat';
 import Notes from './pages/Notes';
 import Test from './pages/Test';
 import TestGenerate from './pages/TestGenerate';
+import Resource from './pages/Resource';
 
 function App() {
   const { user, ready } = useContext(UserContext);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/notes" element={user ? <Notes /> : <Navigate to='/' replace />} />
         <Route path="/test" element={user ? <Test /> : <Navigate to='/' replace />} />
         <Route path="/gentest" element={user ? <TestGenerate /> : <Navigate to='/' replace />} />
+        <Route path="/resource" element={user ? <Resource /> : <Navigate to='/' replace />} />
       </Routes>
   );
 }

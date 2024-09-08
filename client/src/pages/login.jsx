@@ -33,7 +33,7 @@ function Login() {
             const decoded = jwtDecode(token);
             const { email, username , id } = decoded;
             console.log(id);
-            const userData = { email, username };
+            const userData = { email, username , id };
             login(userData);
             localStorage.setItem('user', JSON.stringify(userData));
             setRedirect(true);
@@ -47,7 +47,7 @@ function Login() {
         <div className="flex min-h-screen">
             <div className="w-1/2 flex flex-col p-8 ml-20">
                 <div className="flex mb-10">
-                    <h1 className="text-3xl font-extrabold">Acadza</h1>
+                    <h1 className="text-3xl font-extrabold">MyBuddy</h1>
                 </div>
                 <h1 className="text-4xl font-bold mb-4 tracking-wide">Welcome! 👋</h1>
                 <div className="text-gray-600 mb-5  text-sm">

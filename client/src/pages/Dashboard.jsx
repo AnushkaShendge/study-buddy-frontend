@@ -61,19 +61,19 @@ function Dashboard() {
           </Link>
         </div>
         <div className={`grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${theme === 'light' ? '' : 'text-black'}`}>
-          <Link to="/backlog-remover-dost" className="bg-orange-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          <Link to="/chat" className="bg-orange-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card4} alt="Backlog Remover DOST" className="w-40 h-40 mx-4" />
             <div>
-              <h4 className="text-sm font-semibold">Backlog Remover DOST</h4>
+              <h4 className="text-sm font-semibold">Talk to your DOST</h4>
             </div>
           </Link>
-          <Link to="/revision-dost" className="bg-pink-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          <Link to="/resource" className="bg-pink-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card5} alt="Revision DOST" className="w-40 h-40 mx-4" />
             <div>
-              <h4 className="text-sm font-semibold">Revision DOST</h4>
+              <h4 className="text-sm font-semibold">Resource DOST</h4>
             </div>
           </Link>
-          <Link to="/speed-booster-dost" className="bg-indigo-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
+          <Link to="/dashboard/pdf" className="bg-indigo-50 p-4 rounded-3xl flex items-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <img src={card6} alt="Speed Booster DOST" className="w-40 h-40 mx-4" />
             <div>
               <h4 className="text-sm font-semibold">Speed Booster DOST</h4>
