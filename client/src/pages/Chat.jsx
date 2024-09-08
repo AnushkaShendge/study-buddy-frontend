@@ -9,7 +9,6 @@ import background1 from '../assets/back1.jpg';
 import { FaUserCircle } from "react-icons/fa";
 import uniqBy from 'lodash/uniqBy'; 
 import { UserContext } from '../UserContext';
-
 function Chat() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { user } = useContext(UserContext);
@@ -22,11 +21,8 @@ function Chat() {
   const [loading, setLoading] = useState(true);
   const [onlinePeople, setOnlinePeople] = useState({});
 
-  // Set up WebSocket connection and handle messages
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Get token from localStorage or global state
-
-    // Establish WebSocket connection with token as a query parameter
+    const token = localStorage.getItem('token');
     const ws = new WebSocket(`ws://localhost:4000?token=${token}`);
     
     ws.onopen = () => {
@@ -35,10 +31,8 @@ function Chat() {
     };
 
     ws.addEventListener('message', handleMessage);
-
   }, []);
 
-  // Handle incoming WebSocket messages
   function handleMessage(e) {
     const messageData = JSON.parse(e.data);
     if ('online' in messageData) {
@@ -58,30 +52,26 @@ function Chat() {
     setOnlinePeople(people);
   }
 
-  // Send message through WebSocket
   function sendMessage(e) {
     e.preventDefault();
     if (!newMessageText.trim()) return;
-  
+
     const message = {
       recipient: selectedUser.id,
       text: newMessageText,
       sender: user.id,
     };
-  
+
     ws.send(JSON.stringify(message));
-  
-    setNewMessageText(''); // Clear input
+    setNewMessageText('');
   }
 
-  // Scroll to the bottom when messages are updated
   useEffect(() => {
     if (divUnderMessages.current) {
       divUnderMessages.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
-  // Fetch messages when a user is selected
   useEffect(() => {
     if (selectedUser) {
       setLoading(true);
@@ -101,7 +91,6 @@ function Chat() {
     }
   }, [selectedUser]);
 
-  // Fetch users (friends)
   useEffect(() => {
     axios.get('http://localhost:8000/connect/friends/', {
       headers: {
@@ -124,13 +113,13 @@ function Chat() {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="w-1/4 bg-gradient-to-tr from-cyan-200 via-purple-300 to-violet-400 p-4">
-        <div className='w-full flex justify-between'>
+        <div className="w-full flex justify-between">
           <input
             type="text"
             placeholder="Search people, groups and messages"
-            className="px-4 py-2 mb-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="px-4 py-2 mb-4 border border-gray-300 rounded w-full focus:outline-none focus:border-blue-500"
           />
-          <button className='mb-4 p-2'>
+          <button className="ml-2 p-2">
             {theme === 'light' ? <FaMoon size={24} onClick={toggleTheme} /> : <IoIosSunny size={24} onClick={toggleTheme} />}
           </button>
         </div>
@@ -149,18 +138,12 @@ function Chat() {
                     className="w-10 h-10 rounded-full mr-4"
                   />
                 ) : (
-                  <FaUserCircle className='w-10 h-10 mr-4 text-gray-500' />
+                  <FaUserCircle className="w-10 h-10 mr-4 text-gray-500" />
                 )}
-                {onlinePeople[user.id] && (
-                  <span className="absolute bottom-0 right-3 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
-                )}
-                {!onlinePeople[user.id] && (
-                  <span className="absolute bottom-0 right-3 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
-                )}
+                <span className={`absolute bottom-0 right-3 w-3 h-3 rounded-full border-2 border-white ${onlinePeople[user.id] ? 'bg-green-500' : 'bg-red-500'}`}></span>
               </div>
-              <div>
-                <div className="font-bold text-xl">{user.username}</div>
-                <div className="text-sm text-gray-600">{user.lastMessage}</div>
+              <div className="flex-1 overflow-hidden">
+                <div className="font-bold text-xl truncate">{user.username}</div>
               </div>
             </li>
           ))}
@@ -174,7 +157,7 @@ function Chat() {
           style={{ backgroundImage: theme === 'light' ? `url(${Background})` : `url(${background1})` }}
         ></div>
         {selectedUser ? (
-          <div className={`relative flex flex-col h-full`}>
+          <div className="relative flex flex-col h-full">
             <div className="flex items-center mb-4 p-2 border-b border-gray-500 bg-opacity-70 rounded-lg">
               {user.profile_image ? (
                 <img
@@ -183,7 +166,7 @@ function Chat() {
                   className="w-10 h-10 rounded-full mr-4"
                 />
               ) : (
-                <FaUserCircle className='w-10 h-10 mr-4 text-gray-500' />
+                <FaUserCircle className="w-10 h-10 mr-4 text-gray-500" />
               )}
               <h2 className="text-xl font-bold">{selectedUser.username}</h2>
             </div>
@@ -229,3 +212,4 @@ function Chat() {
 }
 
 export default Chat;
+
