@@ -104,7 +104,7 @@ function Resource() {
                 {sci && (
                     <div className="w-full bg-orange-100 border p-10 rounded-md shadow-md mb-8">
                         <h2 className="text-2xl text-center font-semibold mb-6">Science Resources</h2>
-                        <div className="flex flex-col space-y-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                             {sciChap.length > 0 ? (
                                 sciChap.map((chap) => (
                                     <label key={chap.id} className={radioClass}>
@@ -129,7 +129,7 @@ function Resource() {
                 {maths && (
                     <div className="w-full bg-orange-100 border p-10 rounded-md shadow-md mb-8">
                         <h2 className="text-2xl text-center font-semibold mb-6">Maths Resources</h2>
-                        <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                             {mathsChap.length > 0 ? (
                                 mathsChap.map((chap) => (
                                     <label key={chap.id} className={"m-4 " + radioClass}>
@@ -154,7 +154,7 @@ function Resource() {
                 {chem && (
                     <div className="w-full bg-orange-100 border p-10 rounded-md shadow-md mb-8">
                         <h2 className="text-2xl text-center font-semibold mb-6">Chemistry Resources</h2>
-                        <div className="flex flex-col space-y-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                             {chemChap.length > 0 ? (
                                 chemChap.map((chap) => (
                                     <label key={chap.id} className={radioClass}>
@@ -192,10 +192,10 @@ function Resource() {
                         <h3 className="text-xl font-semibold mb-4">Resources</h3>
                         <div className="flex flex-col space-y-4">
                             {resources.map((res, index) => (
-                                <div key={index} className="border p-4 gap-5 rounded-md">
-                                    <FaYoutube size={25} className="text-red-500" />
+                                <div key={index} className="border p-4 flex items-center justify-between rounded-md">
                                     {res.yt ? (
                                         <div className="mb-4">
+                                            <FaYoutube size={100} className="text-red-500" />
                                             <iframe
                                                 width="560"
                                                 height="315"
@@ -208,10 +208,10 @@ function Resource() {
                                         </div>
                                     ) : null}
                                     {res.pdf ? (
-                                        <div className="p-4 gap-5">
-                                            <BiSolidFilePdf />
+                                        <div className="p-4">
+                                            <BiSolidFilePdf size={50} className="text-blue-400"/>
                                             <a
-                                                href={res.pdf}
+                                                href={res.pdf.startsWith('http') ? res.pdf : `http://localhost:8000${res.pdf}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-500 underline"
