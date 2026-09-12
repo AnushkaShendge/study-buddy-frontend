@@ -8,6 +8,7 @@ import EditNotes from './EditNotes';
 import { HiFolderPlus } from "react-icons/hi2";
 import ShareNotes from './ShareNotes';
 import DisplayNote from './DisplayNote';
+import { API_BASE_URL } from '../config';
 
 function Notes() {
   const [notes, setNotes] = useState([]);
@@ -16,6 +17,11 @@ function Notes() {
   const [editNote, setEditNote] = useState(null);
   const [popShare, setPopShare] = useState(false);
   const [popNote, setPopNote] = useState(false);
+  const [search, setSearch] = useState('');
+  const [ordering, setOrdering] = useState('-id');
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const handleUpdate = () => {
     setPopEdit(!popEdit);
@@ -37,7 +43,7 @@ function Notes() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:8000/notes/${id}/delete`, {
+      const res = await axios.delete(`${API_BASE_URL}/api/v1/notes/${id}/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -64,17 +70,22 @@ function Notes() {
   };
 
   const fetchNotes = async () => {
+    setLoading(true);
     try {
-      const res = await axios.get('http://localhost:8000/notes/', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const res = await axios.get(`${API_BASE_URL}/api/v1/notes/?search=${search}&ordering=${ordering}&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
       if (res.data) {
-        setNotes(res.data);
+        setNotes(res.data.results);
+        setCount(res.data.count);
       }
     } catch (error) {
       console.error('Error fetching notes:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,13 +96,16 @@ function Notes() {
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+    // eslint-disable-next-line
+  }, [search, ordering, page]);
+
+  const totalPages = Math.ceil(count / 20);
 
   return (
     <div className="flex h-screen">
       <SideBarComp />
       <div className="flex-1 p-6 mt-24">
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center mb-4'>
           <div onClick={handlePop} className="bg-gray-100 w-1/2 text-black p-4 rounded-xl flex items-center justify-center shadow-none transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400">
             <HiFolderPlus size={40} className="mr-4 text-blue-600" />
             <div>
@@ -99,28 +113,71 @@ function Notes() {
             </div>
           </div>
         </div>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
+          <input
+            type="text"
+            placeholder="Search notes..."
+            value={search}
+            onChange={e => { setSearch(e.target.value); setPage(1); }}
+            className="p-2 border border-gray-300 rounded w-full md:w-1/3"
+          />
+          <select
+            value={ordering}
+            onChange={e => { setOrdering(e.target.value); setPage(1); }}
+            className="p-2 border border-gray-300 rounded w-full md:w-1/4"
+          >
+            <option value="-id">Newest First</option>
+            <option value="id">Oldest First</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="-title">Title (Z-A)</option>
+          </select>
+        </div>
         {pop && <PopUpNotes handleClose={handlePop} notes={fetchNotes} />}
         <div className="w-full flex justify-center">
           <div className="max-w-6xl w-full p-4">
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-center text-orange-500">My Notes</h2>
-            <div className={notes.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border rounded-lg py-8 px-6" : "flex justify-center items-center h-full p-4"}>
-              {notes.length > 0 ? notes.map((note) => (
-                <NoteItem
-                  key={note.id}
-                  note={note}
-                  Share={() => handleShare(note)}
-                  Delete={() => handleDelete(note.id)}
-                  Edit={() => handleEdit(note)}
-                  onClick={() => handleClick(note)}
-                />
-              )) :
-                <div className='flex items-center justify-center rounded-lg p-4'>
-                  <div className=''>
-                    <FaLightbulb size={180} className='font-bold text-center mb-4' />
-                    <p className='text-center font-light'>Notes you add appear here</p>
-                  </div>
-                </div>}
-            </div>
+            {loading ? (
+              <div className="text-center py-8">Loading...</div>
+            ) : (
+              <div className={notes.length > 0 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border rounded-lg py-8 px-6" : "flex justify-center items-center h-full p-4"}>
+                {notes.length > 0 ? notes.map((note) => (
+                  <NoteItem
+                    key={note.id}
+                    note={note}
+                    Share={() => handleShare(note)}
+                    Delete={() => handleDelete(note.id)}
+                    Edit={() => handleEdit(note)}
+                    onClick={() => handleClick(note)}
+                  />
+                )) :
+                  <div className='flex items-center justify-center rounded-lg p-4'>
+                    <div className=''>
+                      <FaLightbulb size={180} className='font-bold text-center mb-4' />
+                      <p className='text-center font-light'>Notes you add appear here</p>
+                    </div>
+                  </div>}
+              </div>
+            )}
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center mt-6 gap-2">
+                <button
+                  onClick={() => setPage(page - 1)}
+                  disabled={page === 1}
+                  className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+                >
+                  Prev
+                </button>
+                <span className="mx-2">Page {page} of {totalPages}</span>
+                <button
+                  onClick={() => setPage(page + 1)}
+                  disabled={page === totalPages}
+                  className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </div>
         </div>
         {popEdit && <EditNotes note={editNote} handleClose={handleUpdate} handleEdit={fetchNotes} />}

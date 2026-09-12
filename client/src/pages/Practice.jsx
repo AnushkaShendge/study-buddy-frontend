@@ -10,6 +10,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { MdOutlineDoneOutline } from "react-icons/md";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { API_BASE_URL } from "../config";
 
 
 function Practice() {
@@ -48,7 +49,7 @@ function Practice() {
 
     async function fetchAssignment(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/todolist/assignments/${formattedDate}/` , {
+        const res = await axios.get(`${API_BASE_URL}/todolist/assignments/${formattedDate}/` , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
@@ -58,7 +59,7 @@ function Practice() {
 
     async function fetchSelfStudy(currentDate) {
         const formattedDate = formatDate(currentDate);
-        const res = await axios.get(`http://localhost:8000/todolist/selfstudy/${formattedDate}/` , {
+        const res = await axios.get(`${API_BASE_URL}/todolist/selfstudy/${formattedDate}/` , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
@@ -74,7 +75,7 @@ function Practice() {
     }
 
     const completeAssignment = async(assignmentId) => {
-        const res = await axios.post(`http://localhost:8000/todolist/complete_assignments/${assignmentId}/` , {} , {
+        const res = await axios.post(`${API_BASE_URL}/todolist/complete_assignments/${assignmentId}/` , {} , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
@@ -86,7 +87,7 @@ function Practice() {
     };
 
     const completeSelfStudy = async(selfStudyId) => {
-        const res = await axios.post(`http://localhost:8000/todolist/complete_selfstudy/${selfStudyId}/` , {} ,  {
+        const res = await axios.post(`${API_BASE_URL}/todolist/complete_selfstudy/${selfStudyId}/` , {} ,  {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
@@ -96,7 +97,7 @@ function Practice() {
         }
     };
     const deleteAssignment = async(assignmentId) => {
-        const res = await axios.delete(`http://localhost:8000/todolist/delete_assignments/${assignmentId}/` , {
+        const res = await axios.delete(`${API_BASE_URL}/todolist/delete_assignments/${assignmentId}/` , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
@@ -106,7 +107,7 @@ function Practice() {
         }
     }
     const deleteSelfStudy = async(selfStudyId) => {
-        const res = await axios.delete(`http://localhost:8000/todolist/delete_selfstudy/${selfStudyId}/` , {
+        const res = await axios.delete(`${API_BASE_URL}/todolist/delete_selfstudy/${selfStudyId}/` , {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }

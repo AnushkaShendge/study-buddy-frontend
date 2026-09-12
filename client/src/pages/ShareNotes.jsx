@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { CiSaveDown1 } from "react-icons/ci";
 import { MdCancel } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { API_BASE_URL } from "../config";
 
 function ShareNotes({ note, handleClose, handleEdit }) {
   const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
   }, [note.shared_with]);
 
   async function handleUser() {
-    const res = await axios.get('http://localhost:8000/connect/friends/', {
+    const res = await axios.get(`${API_BASE_URL}/connect/friends/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -39,7 +40,7 @@ function ShareNotes({ note, handleClose, handleEdit }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const userId = selectedUsers.map((user) => (user.id));
-    const res = await axios.post(`http://localhost:8000/notes/${note.id}/share/`, { users:userId }, {
+    const res = await axios.post(`${API_BASE_URL}/notes/${note.id}/share/`, { users:userId }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

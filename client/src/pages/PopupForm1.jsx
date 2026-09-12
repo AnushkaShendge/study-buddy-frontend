@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 function PopupForm1({ handleClose , onAssignmentAdded }) {
     const [subject, setSubject] = useState("");
@@ -19,7 +20,7 @@ function PopupForm1({ handleClose , onAssignmentAdded }) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const res = await axios.post('http://localhost:8000/todolist/create_assignments/' , {subject , chapter , deadline} , {
+        const res = await axios.post(`${API_BASE_URL}/todolist/create_assignments/` , {subject , chapter , deadline} , {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }

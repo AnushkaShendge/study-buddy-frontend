@@ -3,6 +3,7 @@ import axios from 'axios';
 import SideBarComp from './SideBarComp';
 import FlipCard from './FlipCard';
 import { ThemeContext } from '../ThemeContext';
+import { API_BASE_URL } from '../config';
 
 function Connect() {
   const {theme} = useContext(ThemeContext)
@@ -13,7 +14,7 @@ function Connect() {
   }, []);
 
   async function fetchPeople() {
-    const res = await axios.get('http://localhost:8000/connect/', {
+    const res = await axios.get(`${API_BASE_URL}/connect/`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
         "Content-Type": 'application/json'

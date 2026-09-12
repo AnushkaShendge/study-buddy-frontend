@@ -8,6 +8,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import axios from "axios";
 import { FaYoutube } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
+import { API_BASE_URL } from "../config";
 
 function Resource() {
     const { theme } = useContext(ThemeContext);
@@ -26,7 +27,7 @@ function Resource() {
 
     async function fetchChapters() {
         try {
-            const res = await axios.get('http://localhost:8000/testseries/all_chapters/', {
+            const res = await axios.get(`${API_BASE_URL}/testseries/all_chapters/`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -56,7 +57,7 @@ function Resource() {
         }
 
         try {
-            const res = await axios.get(`http://localhost:8000/resources/resources/?chapter=${selectedChapter.id}` , {
+            const res = await axios.get(`${API_BASE_URL}/resources/resources/?chapter=${selectedChapter.id}` , {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -211,7 +212,7 @@ function Resource() {
                                         <div className="p-4">
                                             <BiSolidFilePdf size={50} className="text-blue-400"/>
                                             <a
-                                                href={res.pdf.startsWith('http') ? res.pdf : `http://localhost:8000${res.pdf}`}
+                                                href={res.pdf.startsWith('http') ? res.pdf : `${API_BASE_URL}${res.pdf}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-500 underline"

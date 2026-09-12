@@ -6,9 +6,7 @@ import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { jwtDecode } from 'jwt-decode';
 import { UserContext } from '../UserContext';
-
-
-
+import { API_BASE_URL } from '../config';
 
 function Login() {
 
@@ -25,7 +23,7 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await axios.post('http://localhost:8000/login/', { email, password } , { headers: { 'Content-Type': 'application/json' } });
+        const response = await axios.post(`${API_BASE_URL}/login/`, { email, password } , { headers: { 'Content-Type': 'application/json' } });
 
         if (response.data && response.data.token) {
             const token = response.data.token

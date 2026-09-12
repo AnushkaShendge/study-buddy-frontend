@@ -3,6 +3,7 @@ import ChatpdfSidebar from './ChatpdfSidebar';
 import { AiOutlineRobot } from "react-icons/ai";
 import axios from "axios";
 import { ThemeContext } from "../ThemeContext";
+import { API_BASE_URL } from "../config";
 
 function ChatPdf() {
   const { theme } = useContext(ThemeContext);
@@ -16,7 +17,7 @@ function ChatPdf() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/ask_question/', { question });
+      const response = await axios.post(`${API_BASE_URL}/api/ask_question/`, { question });
       setReply(response.data.response);
       console.log(reply)
     } catch (error) {

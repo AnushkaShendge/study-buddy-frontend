@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 function EditForm({handleClose}) {
     const {login} = useContext(UserContext)
@@ -9,7 +10,7 @@ function EditForm({handleClose}) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await axios.put('http://localhost:8000/profile/update/' , {username , email} ,{
+        const res = await axios.put(`${API_BASE_URL}/profile/update/` , {username , email} ,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }

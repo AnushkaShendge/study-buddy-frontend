@@ -11,6 +11,7 @@ import { ThemeContext } from "../ThemeContext";
 import { FaUserAlt } from "react-icons/fa";
 import { UserContext } from "../UserContext";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 function Header({ sidebarOpen }) {
   const { user } = useContext(UserContext);
@@ -20,7 +21,7 @@ function Header({ sidebarOpen }) {
   const [pic, setPic] = useState(null);
 
   async function handleAvatar() {
-    const res = await axios.get('http://localhost:8000/profile/image2/', {
+    const res = await axios.get(`${API_BASE_URL}/profile/image2/`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
@@ -82,7 +83,7 @@ function Header({ sidebarOpen }) {
         </div>
         <div className="ml-4 flex items-center space-x-1 cursor-pointer relative">
           {pic ? (
-            <img src={`http://localhost:8000${pic}`} className="w-10 h-10 sm:w-14 sm:h-14 rounded-full" />
+            <img src={pic.startsWith('http') ? pic : `${API_BASE_URL}${pic}`} className="w-10 h-10 sm:w-14 sm:h-14 rounded-full" />
           ) : (
             <FaUserCircle size={32} className="text-gray-300 sm:text-40" />
           )}

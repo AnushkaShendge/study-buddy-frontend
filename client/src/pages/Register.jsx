@@ -5,6 +5,7 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
+import { API_BASE_URL } from '../config';
 
 function Register() {
     const [course, setCourse] = useState('');
@@ -20,7 +21,7 @@ function Register() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await axios.post('http://localhost:8000/signup/', { course , username , email , password });
+        const response = await axios.post(`${API_BASE_URL}/signup/`, { course , username , email , password });
         if (response.data) {
             setRedirect(true);
         }

@@ -3,6 +3,7 @@ import SideBarComp from "./SideBarComp";
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaBell } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 function TestGenerate() {
     const [questions, setQuestions] = useState([]);
@@ -39,7 +40,7 @@ function TestGenerate() {
 
     async function fetchQuestions(id) {
         try {
-            const res = await axios.get(`http://localhost:8000/testseries/get_test_questions/${id}/`, {
+            const res = await axios.get(`${API_BASE_URL}/testseries/get_test_questions/${id}/`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -56,7 +57,7 @@ function TestGenerate() {
 
     async function fetchDetails(id) {
         try {
-            const res = await axios.get(`http://localhost:8000/testseries/get_test_detail/${id}/`, {
+            const res = await axios.get(`${API_BASE_URL}/testseries/get_test_detail/${id}/`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -82,7 +83,7 @@ function TestGenerate() {
         }));
 
         try {
-            const res = await axios.post(`http://localhost:8000/testseries/submit_test/${localStorage.getItem('test_id')}/`, { answers }, {
+            const res = await axios.post(`${API_BASE_URL}/testseries/submit_test/${localStorage.getItem('test_id')}/`, { answers }, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }

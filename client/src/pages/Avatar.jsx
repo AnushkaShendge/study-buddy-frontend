@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { API_BASE_URL } from '../config';
 
 function Avatar({ avatars, handleClose , handleAvatar }) {
     const [selectedAvatar, setSelectedAvatar] = useState(null);
@@ -23,7 +24,7 @@ function Avatar({ avatars, handleClose , handleAvatar }) {
                 formData.append('profile_image', file, file.name);
 
     
-                const res = await axios.post('http://localhost:8000/profile/image/', formData, {
+                const res = await axios.post(`${API_BASE_URL}/profile/image/`, formData, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     },

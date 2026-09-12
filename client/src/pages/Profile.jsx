@@ -43,16 +43,16 @@ import Avatar from './Avatar';
 import './../index.css'
 
 const Profile = () => {
-  const { user } = useContext(UserContext);
   const [friends, setFriends] = useState([]);
   const [friReq, setFriReq] = useState([]);
-  const [edit, setEdit] = useState(false);
+  const [popEdit, setPopEdit] = useState(false);
+  const { user } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
   const [pop , setPop] = useState(false)
   const [pic , setPic] = useState(null);
   
   async function handleAvatar() {
-    const res = await axios.get('http://localhost:8000/profile/image2/',{
+    const res = await axios.get(`${API_BASE_URL}/profile/image2/`,{
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
     },
@@ -77,7 +77,7 @@ const Profile = () => {
   }, []);
 
   async function fetchFriends() {
-    const res = await axios.get('http://localhost:8000/profile/', {
+    const res = await axios.get(`${API_BASE_URL}/profile/`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -96,7 +96,7 @@ const Profile = () => {
   }
 
   async function handleAccept(id) {
-    const res = await axios.post(`http://localhost:8000/accept_friend_request/${id}/`, {}, {
+    const res = await axios.post(`${API_BASE_URL}/accept_friend_request/${id}/`, {}, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -107,7 +107,7 @@ const Profile = () => {
   }
 
   async function handleDecline(id) {
-    const res = await axios.post(`http://localhost:8000/decline_friend_request/${id}/`, {}, {
+    const res = await axios.post(`${API_BASE_URL}/decline_friend_request/${id}/`, {}, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
@@ -118,35 +118,26 @@ const Profile = () => {
   }
 
   function handleClick() {
-    setEdit(!edit);
+    setPopEdit(!popEdit);
   }
 
   return (
-    <div className={`flex ${theme === 'light' ? '' : 'bg-black text-white'}`}>
+    <div className="flex h-screen overflow-hidden">
       <SideBarComp />
-      <div className="flex-grow mt-24 flex flex-col items-center gap-10">
-        <div className="flex flex-col items-center relative">
-          <div className="flex gap-40 justify-between">
-            {/* Profile Card */}
-            <div className={`w-[430px] h-60 mt-10 rounded-lg border ${theme === 'light' ? 'bg-gradient-to-br from-cyan-100 via-pink-300  to-pink-200' : 'bg-gradient-to-br from-cyan-100 to-pink-300 text-black'} p-5 shadow-lg mb-10 flex flex-col items-center relative hover:scale-110 ease-in-out transition duration-500`}>
-              <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
-                <div className="grid grid-cols-3 items-center h-full border-glows">
-                  <div className='flex items-center justify-center ml-6'>
-                    <h6 className="text-3xl ">
-                      Hello {!!user && (
-                        <span className="text-orange-600 font-bold text-4xl">{user.username}</span>
-                      )}
-                    </h6>
-                  </div>
-                  <div className='mr-10 flex justify-center items-center'>
-                    <img src={bg} className='w-[430px] h-60  bg-cover rounded-lg mr-10' />
-                  </div>
-                  <div className='mr-10 flex flex-col items-center'>
-                    {!!user && (
-                      <p className="text-gray-500 text-md">{user.email}</p>
-                    )}
-                    <button className="bg-gradient-to-r from-blue-300 to-white  text-black px-3 py-2 mx-1 rounded-md text-lg mt-2 hover:bg-gradient-to-r hover:from-white hover:to-blue-300" onClick={handleClick}>Edit</button>
-                    {edit && (
+      <div className={`flex-1 flex flex-col items-center justify-between p-6 ${theme === 'dark' ? 'bg-zinc-800 text-white' : 'bg-gray-100 text-black'} overflow-y-auto`}>
+        <h1 className="text-[#3F48C4] text-5xl font-extrabold mb-8 tracking-wider font-sans uppercase underline decoration-rose-500 underline-offset-8">User Profile</h1>
+
+        {/* Profile Card */}
+        <div className="w-full max-w-4xl shadow-xl rounded-2xl p-6 border transition duration-300 transform hover:scale-102 mb-8" style={{ background: 'linear-[#FAFAFA]' }}>
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center space-x-6">
+              <div>
+                <h2 className="text-[#DF662A] text-4xl font-bold mb-2 uppercase">{user.username}</h2>
+                <p className="text-gray-600 mb-[#F3F4F6] text-xl font-medium">{user.email}</p>
+                <div className="flex items-center justify-between mt-4">
+                  <div className="relative inline-block text-left">
+                    <button onClick={handleClick} className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 font-semibold shadow-md transition duration-300">Edit Profile</button>
+                    {popEdit && (
                       <EditForm handleClose={handleClick} />
                     )}
                   </div>
@@ -156,7 +147,7 @@ const Profile = () => {
             <div className="flex flex-col mb-8 items-center justify-center gap-1">
               <FaCrown size={50} className='text-yellow-400 mr-8 -rotate-12' />
               <button className="w-56 h-56 bg-gray-300 rounded-full flex items-center justify-center  ">
-                {pic ? <img src={`http://localhost:8000${pic}`} alt='avatar' onClick={handleClickAvatar} className='rounded-full img hover:scale-110 ease-in-out transition duration-500 border-glow' /> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
+                {pic ? <img src={pic.startsWith('http') ? pic : `${API_BASE_URL}${pic}`} alt='avatar' onClick={handleClickAvatar} className='rounded-full img hover:scale-110 ease-in-out transition duration-500 border-glow' /> : <LiaUserPlusSolid size={90} className='' onClick={handleClickAvatar} />}
                 {pop && <Avatar avatars={avatars} handleClose={handleClickAvatar} handleAvatar={setPic} />}
               </button>
             </div>

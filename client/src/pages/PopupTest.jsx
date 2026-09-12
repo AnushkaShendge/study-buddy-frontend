@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 function PopupTest({ handleClose, onAdded }) {
     const [subject, setSubject] = useState(null);
@@ -20,7 +21,7 @@ function PopupTest({ handleClose, onAdded }) {
     const navigate = useNavigate();
 
     async function fetchSubs() {
-        const res = await axios.get('http://localhost:8000/testseries/subjects/', {
+        const res = await axios.get(`${API_BASE_URL}/testseries/subjects/`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -31,7 +32,7 @@ function PopupTest({ handleClose, onAdded }) {
     }
 
     async function fetchSubdomain(id) {
-        const res = await axios.get(`http://localhost:8000/testseries/subdomains/${id}`, {
+        const res = await axios.get(`${API_BASE_URL}/testseries/subdomains/${id}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -40,7 +41,7 @@ function PopupTest({ handleClose, onAdded }) {
     }
 
     async function fetchChap(id) {
-        const res = await axios.get(`http://localhost:8000/testseries/chapters/${id}`, {
+        const res = await axios.get(`${API_BASE_URL}/testseries/chapters/${id}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -86,7 +87,7 @@ function PopupTest({ handleClose, onAdded }) {
         localStorage.setItem('test_duration' , duration);
         const chapId = selectedChapters.map(c => c.id);
 
-        const res = await axios.post('http://localhost:8000/testseries/generate_test/', { chapter_ids: chapId, duration }, {
+        const res = await axios.post(`${API_BASE_URL}/testseries/generate_test/`, { chapter_ids: chapId, duration }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

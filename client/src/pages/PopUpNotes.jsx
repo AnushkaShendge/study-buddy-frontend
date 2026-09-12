@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { IoMdShare, IoMdArrowDropdown } from "react-icons/io";
+import { API_BASE_URL } from "../config";
 
 function PopUpNotes({ handleClose, notes }) {
   const [users, setUsers] = useState([]);
@@ -14,7 +15,7 @@ function PopUpNotes({ handleClose, notes }) {
   }, []);
 
   async function handleUser() {
-    const res = await axios.get('http://localhost:8000/connect/friends/', {
+    const res = await axios.get(`${API_BASE_URL}/connect/friends/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -37,7 +38,7 @@ function PopUpNotes({ handleClose, notes }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const sharedWithIds = selectedUsers.map((user) => user.id);
-    const res = await axios.post('http://localhost:8000/notes/create/', { title, shared_with: sharedWithIds, content }, {
+    const res = await axios.post(`${API_BASE_URL}/notes/create/`, { title, shared_with: sharedWithIds, content }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },

@@ -9,6 +9,8 @@ import background1 from '../assets/back1.jpg';
 import { FaUserCircle } from "react-icons/fa";
 import uniqBy from 'lodash/uniqBy'; 
 import { UserContext } from '../UserContext';
+import { API_BASE_URL, NODE_API_BASE_URL, WS_BASE_URL } from '../config';
+
 function Chat() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { user } = useContext(UserContext);
@@ -23,7 +25,7 @@ function Chat() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const ws = new WebSocket(`ws://localhost:4000?token=${token}`);
+    const ws = new WebSocket(`${WS_BASE_URL}?token=${token}`);
     
     ws.onopen = () => {
       console.log('WebSocket connected');
@@ -75,7 +77,7 @@ function Chat() {
   useEffect(() => {
     if (selectedUser) {
       setLoading(true);
-      axios.get(`http://localhost:4000/messages/${selectedUser.id}`, {
+      axios.get(`${NODE_API_BASE_URL}/messages/${selectedUser.id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -92,7 +94,7 @@ function Chat() {
   }, [selectedUser]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/connect/friends/', {
+    axios.get(`${API_BASE_URL}/connect/friends/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -133,7 +135,7 @@ function Chat() {
               <div className="relative">
                 {user.profile_image ? (
                   <img
-                    src={`http://localhost:8000${user.profile_image}`}
+                    src={user.profile_image.startsWith('http') ? user.profile_image : `${API_BASE_URL}${user.profile_image}`}
                     alt={user.username}
                     className="w-10 h-10 rounded-full mr-4"
                   />
@@ -161,7 +163,7 @@ function Chat() {
             <div className="flex items-center mb-4 p-2 border-b border-gray-500 bg-opacity-70 rounded-lg">
               {user.profile_image ? (
                 <img
-                  src={`http://localhost:8000${user.profile_image}`}
+                  src={user.profile_image.startsWith('http') ? user.profile_image : `${API_BASE_URL}${user.profile_image}`}
                   alt={user.username}
                   className="w-10 h-10 rounded-full mr-4"
                 />

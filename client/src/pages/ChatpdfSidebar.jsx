@@ -4,6 +4,7 @@ import robot from '../assets/Robot.jpg';
 import { FaFileDownload } from "react-icons/fa";
 import axios from "axios";
 import { ThemeContext } from "../ThemeContext";
+import { API_BASE_URL } from "../config";
 
 function ChatpdfSidebar({ isOpen, toggleSidebar }) {
     const { theme } = useContext(ThemeContext);
@@ -27,7 +28,7 @@ function ChatpdfSidebar({ isOpen, toggleSidebar }) {
         });
 
         try {
-            const response = await axios.post('http://localhost:8000/api/upload_pdfs/', formData, {
+            const response = await axios.post(`${API_BASE_URL}/api/upload_pdfs/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

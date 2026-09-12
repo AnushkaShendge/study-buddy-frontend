@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState , useEffect } from 'react';
 import { MdSend } from "react-icons/md";
 import { v4 as uuidv4 } from 'uuid';
+import { API_BASE_URL } from '../config';
 
 function Chatbot() {
   const [messages, setMessages] = useState([]);
@@ -13,9 +14,6 @@ function Chatbot() {
     setSessionId(newSessionId);
   }, []);
 
-
-
- 
   async function handleSubmit() {
     if (input.trim() === '') return;
     const newMessages = [...messages, { role: 'user', content: input }];
@@ -23,7 +21,7 @@ function Chatbot() {
     setInput('');
 
     try {
-      const response = await axios.post('http://localhost:8000/api/chat/', { 
+      const response = await axios.post(`${API_BASE_URL}/api/chat/`, { 
         question: input,
         session_id: sessionId,
       } ,

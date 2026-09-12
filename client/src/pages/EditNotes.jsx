@@ -3,6 +3,7 @@ import { FaImage } from "react-icons/fa6";
 import { BiSolidFilePdf } from "react-icons/bi";
 import axios from 'axios';
 import { ImSpinner3 } from "react-icons/im";
+import { API_BASE_URL } from '../config';
 
 function EditNotes({ handleClose, handleEdit, note }) {
   const [title, setTitle] = useState(note.title);
@@ -14,7 +15,7 @@ function EditNotes({ handleClose, handleEdit, note }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:8000/notes/${note.id}/update/`, { title, content, documents: pdf, images: img }, {
+      const res = await axios.post(`${API_BASE_URL}/notes/${note.id}/update/`, { title, content, documents: pdf, images: img }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

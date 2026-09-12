@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import axios from "axios";
 import { ImUserPlus } from "react-icons/im";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import { API_BASE_URL } from "../config";
 
 const FlipCard = ({ user }) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -21,7 +22,7 @@ const FlipCard = ({ user }) => {
   const sendFriendRequest = async (receiver_id) => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/connect/send_friend_request/${receiver_id}/`,
+        `${API_BASE_URL}/connect/send_friend_request/${receiver_id}/`,
         {},
         {
           headers: {
@@ -50,7 +51,7 @@ const FlipCard = ({ user }) => {
           <div className="flip-card-front w-full h-full absolute flex flex-col items-center justify-center bg-gradient-to-b from-purple-300 to-indigo-400 rounded-md shadow-lg" style={{ backfaceVisibility: 'hidden' }}>
             <div className="w-28 h-28 mt-3 rounded-full overflow-hidden">
               {user.profile_image ? (
-                <img src={`http://localhost:8000${user.profile_image}`} alt={user.username} className="w-full h-full object-cover" />
+                <img src={user.profile_image.startsWith('http') ? user.profile_image : `${API_BASE_URL}${user.profile_image}`} alt={user.username} className="w-full h-full object-cover" />
               ) : (
                 <FaUserCircle size={112} className="text-black" />
               )}

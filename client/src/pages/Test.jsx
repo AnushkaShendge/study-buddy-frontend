@@ -6,6 +6,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import PopupTest from "./PopupTest";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 function Test() {
     const [test, setTest] = useState([]);
@@ -19,7 +20,7 @@ function Test() {
     }
 
     async function fetchTest() {
-        const res = await axios.get('http://localhost:8000/testseries/get_previous_tests/', {
+        const res = await axios.get(`${API_BASE_URL}/testseries/get_previous_tests/`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -39,7 +40,7 @@ function Test() {
 
     async function handleMouseEnter(id) {
         setHoveredTest(id);
-        const res = await axios.get(`http://localhost:8000/testseries/get_test_detail/${id}/`, {
+        const res = await axios.get(`${API_BASE_URL}/testseries/get_test_detail/${id}/`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
